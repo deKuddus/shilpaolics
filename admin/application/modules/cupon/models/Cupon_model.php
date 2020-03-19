@@ -53,7 +53,7 @@ class Cupon_model extends MY_Model {
     public function store($cupon_data)
     {
       if($this->db->insert($this->_table_name,$cupon_data)){
-        return 200;
+        return true;
       }
     }
 

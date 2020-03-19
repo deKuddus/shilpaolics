@@ -139,15 +139,8 @@ class Product extends Admin_Controller {
 
 
 		if(!empty($_FILES)){
-			$config = [
-				'upload_path' => "./product_picture/",
-				'allowed_types' => "gif|jpg|png|jpeg",
-				'overwrite' => false,
-				'max_size' => "2048000",
-				'height' => 128,
-				'width' => 128,
-				'encrypt_name'=>true
-			];
+			$config = image_config('product_picture');
+
 			$this->load->library('upload', $config);
 			if($this->upload->do_upload('feature_image1') == true){
 				$data = $this->upload->data();
@@ -169,10 +162,8 @@ class Product extends Admin_Controller {
 			}
 
 		}else{
-			$feature_image1 = "product_picture/".rand(0,time()).'.png';
-			$feature_image2 = "product_picture/".rand(0,time()).'.png';
-			copy("product_picture/default.png",$feature_image1);
-			copy("product_picture/default.png",$feature_image2);
+			$feature_image1 = "product_picture/default.png";
+			$feature_image2  = "product_picture/default.png";
 		}
 		$data = array(
 			'title'=>$this->input->post('title'),
@@ -194,9 +185,25 @@ class Product extends Admin_Controller {
 			'feature_image1'=>$feature_image1,
 			'feature_image2'=>$feature_image2,
 		);
+		if($id = $this->product_model->store($data)){
+			$files = $_FILES;
+			$size = sizeof($_FILES['optional_image']);
+			$config = image_config('product_picture');
+			$this->load->library('upload', $config);
+			for ($i=0; $i < $size; $i++) {
 
-		$success = $this->product_model->store($data);
-		if($success==200){
+				$_FILES['optional_image']['name']= $files['optional_image']['name'][$i];
+				$_FILES['optional_image']['type']= $files['optional_image']['type'][$i];
+				$_FILES['optional_image']['tmp_name']= $files['optional_image']['tmp_name'][$i];
+				$_FILES['optional_image']['error']= $files['optional_image']['error'][$i];
+				$_FILES['optional_image']['size']= $files['optional_image']['size'][$i]; 
+
+				if($this->upload->do_upload('optional_image') == true){
+					$data = $this->upload->data();
+					$optional_image = 'product_picture/'.$data['file_name'];
+				} 
+				$this->product_model->upload_optional_image(['product_id' => $id,'picture' => $optional_image]);
+			}
 			$data = array('status'=>200);
 			header("Content-type: application/json");
 			echo json_encode($data);
@@ -227,6 +234,7 @@ class Product extends Admin_Controller {
 		$this->data['tags'] = $this->product_model->get_all_tags('dropdown');
 		$this->data['colors'] = $this->product_model->get_all_colors('dropdown');
 		$this->data['sizes'] = $this->product_model->get_all_sizes('dropdown');
+		$this->data['optional_image'] = $this->product_model->get_image_optional_image($product_id);
 		$this->data['users_page'] = TRUE;
 		$this->data['form_page'] = TRUE;
 		$this->data['view_module'] = 'product';
@@ -350,52 +358,27 @@ class Product extends Admin_Controller {
 	}
 
 
-
-	// public function product_multiple_file_upload($product_id){
-	// 	$config = array(
-	// 		'upload_path' => "./product_picture/",
-	// 		'allowed_types' => "gif|jpg|png|jpeg",
-	// 		'overwrite' => false,
-	// 		'encrypt_name'=>true
-	// 	);
-	// 	$this->load->library('upload', $config);
-	// 	$count = count($_FILES['picture']['tmp_name']);
-	// 	$files = $_FILES;
-	// 	for($i = 0; $i < $count; $i++) {
-
-
-	// 		$_FILES['picture']['name'] = $files['picture']['name'][$i];
-	// 		$_FILES['picture']['type'] = $files['picture']['type'][$i];
-	// 		$_FILES['picture']['tmp_name'] = $files['picture']['tmp_name'][$i];
-	// 		$_FILES['picture']['error'] = $files['picture']['error'][$i];
-	// 		$_FILES['picture']['size'] = $files['picture']['size'][$i];
-
-
-
-	// 		if($this->upload->do_upload('picture')==TRUE){
-	// 			$data = $this->upload->data();
-	// 			$image_data = [
-	// 				'product_id' => $product_id,
-	// 				'picture'=> 'product_picture/'.$data['file_name']
-	// 			];
-	// 			$success = $this->product_model->product_multiple_file_upload($image_data);
-
-	// 		}else{
-	// 			$data['img_err'] = $this->upload->display_errors('<p>', '</p>');
-	// 			$data1 = array('status'=>900,'message'=>$data['img_err']);
-	// 			header("Content-type: application/json");
-	// 			echo json_encode($data1);
-	// 			exit();
-	// 		}
-	// 	}
-
-	// 	if($success == "success"){
-	// 		$data1 = array('status'=>200,'message'=>'succesfully Added Product');
-	// 		header("Content-type: application/json");
-	// 		echo json_encode($data1);
-	// 		exit();
-	// 	}
-	// }
+	public function get_image_optional_image()
+	{
+		$product_id = $this->input->post('product_id');
+		if(isset($product_id)){
+			$images = $this->product_model->get_image_optional_image($product_id);
+			if($images){
+				$html = '';
+				foreach ($images as $key => $image) {
+					$html.='<div class="col-md-3">';
+                $html.='<div class="form-group">';
+                $html.='<label for="control-label mb-10">Optional Image &nbsp;&nbsp;';
+                $html.='<span class="float-right text-danger" style="cursor:pointer" onclick="delete_single_image_optional('.$image->id.')">delete</span>';
+                $html.='</label><br><br>';
+                $html.='<img src="'.FILE_UPLOAD_PATH.$image->picture.'" alt="default image" height="200px" width="250px">';
+                $html.='</div>';
+                $html.='</div>';
+				}
+				echo $html;
+			}
+		}
+	}
 
 	/*
 	*

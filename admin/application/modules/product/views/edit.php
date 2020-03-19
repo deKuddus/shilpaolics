@@ -202,7 +202,18 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             </div>
           </div>
         </div>
+        <?php if(sizeof($optional_image) > 0): ?>
+        <br>
+        <div class="row" id="optional_image">
 
+        </div>
+      <?php endif ?>
+        <br>
+        <div class="row">
+          <div class="col-md-12">
+              <div class="input-images"></div>
+            </div>
+        </div><br>
         <div class="row">
           <div class="col-md-6"></div>
           <div class="col-md-6">
@@ -221,7 +232,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     </div>
   </div>
 </div>
-
+<script type="text/javascript">
+  var product_id_form_edit = '<?php echo $product->id; ?>';
+</script>
 
 
 <!-- /page content -->

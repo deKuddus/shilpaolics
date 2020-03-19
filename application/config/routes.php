@@ -12,7 +12,7 @@ $route['login'] = 'users/login';
 $route['logout'] = 'users/logout';
 
 //product custom route for front end
-$route['product/details/:id'] ='product/details';
+$route['products/details/:id'] ='product/details';
 $route['product/edit/:id'] ='product/edit';
 //cart custom routes
 $route['cart/remove/:id'] ='cart/remove';

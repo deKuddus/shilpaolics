@@ -413,7 +413,9 @@ function discount_type(discount_type){
       });
     }
 }
+$('.input-images').imageUploader({
 
+});
 
 $(document).ready(function(){
 
@@ -423,3 +425,22 @@ $(document).ready(function(){
   });
 
 });
+
+
+//get product optional image
+
+get_image_optional_image();
+function get_image_optional_image(){
+  if(product_id_form_edit){
+    $.ajax({
+      url:base_url+'product/get_image_optional_image',
+      method:'post',
+      data:{product_id:product_id_form_edit},
+      success:function(data){
+        if(data){
+          $('#optional_image').html(data);
+        }
+      }
+    });
+  }
+}

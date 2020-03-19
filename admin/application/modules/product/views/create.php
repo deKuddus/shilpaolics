@@ -200,18 +200,21 @@ defined('BASEPATH') OR exit('No direct script access allowed');
               </div>
             </div>
           </div>
-        </div>
-
+        </div><br>
         <div class="row">
-          <div class="col-md-6"></div>
-          <div class="col-md-6">
+          <div class="col-md-12">
+              <div class="input-images"></div>
+            </div>
+        </div>
+        <br>
+        <div class="row">
+          <div class="col-md-8"></div>
+          <div class="col-md-4">
             <div class="form-group">
-              <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
                 <a href="<?php echo site_url('product/manage'); ?>">
                   <button class="btn btn-primary" type="button" ><i class="fa fa-minus-square"></i>&nbsp; Cancel </button>
                 </a>
                 <button type="submit"  class="btn btn-primary" class="btn btn-success" id="submit">Save</button>
-              </div>
             </div>
           </div>
 

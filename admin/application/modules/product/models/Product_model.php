@@ -63,8 +63,19 @@ class Product_model extends MY_Model {
     public function store($data){
 
         if($this->db->insert($this->_table_name, $data)){
-            return 200;
+            return $this->db->insert_id();
         }
+    }
+
+    public function upload_optional_image($data){
+        if($this->db->insert('product_optional_image', $data)){
+            return true;
+        }
+    }
+
+    public function get_image_optional_image($id){
+        $image = $this->db->where('product_id',$id)->get('product_optional_image');
+        return $image->result();
     }
 
     public function update($product_id,$data){

@@ -57,6 +57,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 <script src="<?php echo base_url(); ?>public/admin_theme/js/plugins/dataTables/datatables.min.js"></script>
 <script src="<?php echo base_url(); ?>public/admin_theme/js/plugins/dataTables/dataTables.bootstrap4.min.js"></script>
+<script src="<?php echo base_url(); ?>public/admin_theme/dist/image-uploader.min.js"></script>
 
 <script src="<?php echo base_url(); ?>public/admin_theme/js/validate.min.js"></script>
 <script src="<?php echo base_url(); ?>public/admin_theme/js/plugins/toastr/toastr.min.js"></script>
