@@ -1,15 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.5
+-- version 4.6.6deb5
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost
--- Generation Time: Dec 30, 2019 at 02:21 PM
--- Server version: 10.1.38-MariaDB
--- PHP Version: 5.6.40
+-- Host: localhost:3306
+-- Generation Time: Mar 21, 2020 at 06:18 PM
+-- Server version: 5.7.29-0ubuntu0.18.04.1
+-- PHP Version: 7.2.24-0ubuntu0.18.04.3
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
-START TRANSACTION;
 SET time_zone = "+00:00";
 
 
@@ -36,17 +34,12 @@ CREATE TABLE `blogs` (
   `author` varchar(80) NOT NULL,
   `content` text NOT NULL,
   `category` int(11) NOT NULL,
+  `sub_category` int(11) NOT NULL,
+  `tags` varchar(30) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `counter` int(11) NOT NULL DEFAULT '0',
   `is_active` tinyint(1) NOT NULL DEFAULT '1'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `blogs`
---
-
-INSERT INTO `blogs` (`id`, `title`, `slug`, `images`, `author`, `content`, `category`, `created_at`, `counter`, `is_active`) VALUES
-(1, 'Sed ut perspiciatis unde omnis iste natus error', 'test-blog', 'blog_image/blog-img4.jpg', 'admin', 'Ut tellus dolor, dapibus eget, elementum vel, cursus eleifend, elit. Aenean auctor wisi et urna. Aliquam erat volutpat. Duis ac turpis. Donec sit amet eros. Lorem ipsum dolor sit amet, consecvtetuer adipiscing elit. Mauris fermentum dictum magna. Sed laoreet aliquam leo. Ut tellus dolor, dapibus eget, elementum vel.\r\n\r\nAenean auctor wisi et urna. Aliquam erat volutpat. Duis ac turpis. Integer rutrum ante eu lacus. Vestibulum libero nisl, porta vel, scelerisque eget, malesuada at, neque. Vivamus eget nibh. Etiam cursus leo vel metus. Nulla facilisi. Aenean nec eros.\r\n\r\nLorem ipsum dolor sit amet, verenam operibus furiam conclusoque sponte profundo. Conservus mihi esse haec aliquam inlido laetare quod eam ad per. Antiochia videns quia quod non ait est Apollonius non dum animae tertio eam ad te princeps ea docentur Hellenicus ut diem finito convocatis secessit civitatis civium takimata. Parem luctu gubernatori usque vero rex Dionysiadi me missam ne alicuius altum pervenit est amet amet Cur meae.\r\nNam elit agna,endrerit sit amet, tincidunt ac, viverra sed, nulla. Donec porta diam eu massa. Quisque diam lorem, interdum vitae,dapibus ac, scelerisque vitae, pede. Donec eget tellus non erat lacinia fermentum. Donec in velit vel ipsum auctor pulvinar. Vestibulum iaculis lacinia est. Proin dictum elementum velit. Fusce euismod consequat ante. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Pellentesque sed dolor. Aliquam congue fermentum nisl.\r\n\r\nAenean auctor wisi et urna. Aliquam erat volutpat. Duis ac turpis. Integer rutrum ante eu lacus. Vestibulum libero nisl, porta vel, scelerisque eget, malesuada at, neque. Vivamus eget nibh. Etiam cursus leo vel metus. Nulla facilisi. Aenean nec eros.\r\n\r\nInteger rutrum ante eu lacus.Vestibulum libero nisl, porta vel, scelerisque eget, malesuada at, neque. Vivamus eget nibh. Etiam cursus leo vel metus. Nulla facilisi. Aenean nec eros. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Suspendisse sollicitudin velit sed leo. Ut pharetra augue nec augue.', 1, '2019-12-14 09:03:33', 80, 1);
 
 -- --------------------------------------------------------
 
@@ -57,6 +50,7 @@ INSERT INTO `blogs` (`id`, `title`, `slug`, `images`, `author`, `content`, `cate
 CREATE TABLE `blog_category` (
   `id` int(11) NOT NULL,
   `name` varchar(80) NOT NULL,
+  `pid` int(11) NOT NULL,
   `is_active` tinyint(1) NOT NULL DEFAULT '1'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -64,9 +58,11 @@ CREATE TABLE `blog_category` (
 -- Dumping data for table `blog_category`
 --
 
-INSERT INTO `blog_category` (`id`, `name`, `is_active`) VALUES
-(1, 'Audio', 1),
-(2, 'Diet & Fitness', 1);
+INSERT INTO `blog_category` (`id`, `name`, `pid`, `is_active`) VALUES
+(1, 'Audio', 0, 1),
+(2, 'Diet & Fitness', 0, 1),
+(3, 'bangla song', 1, 1),
+(4, 'english', 1, 1);
 
 -- --------------------------------------------------------
 
@@ -84,15 +80,6 @@ CREATE TABLE `blog_comments` (
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `is_active` tinyint(1) NOT NULL DEFAULT '1'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `blog_comments`
---
-
-INSERT INTO `blog_comments` (`id`, `post_id`, `name`, `email`, `website`, `message`, `created_at`, `is_active`) VALUES
-(1, 1, 'Md Abdul Kuddus', 'ma.kuddus37@gmail.com', 'test', 'Aenean auctor wisi et urna. Aliquam erat volutpat. Duis ac turpis. Integer rutrum ante eu lacus. Vestibulum libero nisl, porta vel, scelerisque eget, malesuada at, neque.', '2019-12-15 06:17:45', 1),
-(2, 1, 'Md Abdul Kuddus', 'admin@admin.com', 'sdfd', 'or. Aliquam congue fermentum nisl. Aenean auctor wisi et urna. Aliquam erat volutpat. Duis ac turpis. Integer rutrum ante eu lacus. Vestibulum libero nisl, porta vel, scelerisque eget, malesuada at, neque. Vivamus eget nibh. Etiam cursus leo vel metus. Nulla facilisi. Aenean nec eros. I', '2019-12-15 06:22:33', 1),
-(3, 1, 'Md Abdul Kuddus', 'ma.kuddus37@gmail.com', 'sdfd', 'm congue fermentum nisl. Aenean auctor wisi et urna. Aliquam erat volutpat. Duis ac turpis. Integer rutrum ante eu lacus. Vestibulum libero nisl, porta vel, scelerisque eget, malesuada at, neque. Vivamus eget nibh. Etiam cursus leo vel metus. Nulla fa', '2019-12-15 06:33:18', 1);
 
 -- --------------------------------------------------------
 
@@ -132,10 +119,17 @@ CREATE TABLE `brand` (
 --
 
 INSERT INTO `brand` (`id`, `name`, `picture`, `is_active`) VALUES
-(1, 'samsung', 'brand_picture/a81044be5db8c3bf453c4851be5717e1.jpg', 1),
+(1, 'samsung', 'brand_picture/698440e82dffb37384fa4a6f4d68b128.jpeg', 1),
 (2, 'polo', 'brand_picture/4e60ea514ff702a3edb4e49bdb257592.jpg', 1),
 (3, 'hp', 'brand_picture/95fc585502dce99a689c78e363eeb11f.jpg', 1),
-(4, 'walton', 'brand_picture/4e60ea514ff702a3edb4e49bdb257592.jpg', 1);
+(4, 'walton', 'brand_picture/4e60ea514ff702a3edb4e49bdb257592.jpg', 1),
+(13, 'Mak', 'brand_picture/13da164cd08cd7f9657f9329bd43ea12.jpeg', 1),
+(14, 'Samsung00', 'brand_picture/4f20e2f65b14814ccb5c25e9f34a26ca.jpg', 1),
+(15, 'Samsung900', 'brand_picture/634819149.png', 1),
+(16, 'Mak900', 'brand_picture/903130662.png', 1),
+(17, 'Mak090', 'brand_picture/596246939.png', 1),
+(18, 'Mak45678', 'brand_picture/109366143.png', 1),
+(19, 'Makfghj', 'brand_picture/1161809809.png', 1);
 
 -- --------------------------------------------------------
 
@@ -150,7 +144,7 @@ CREATE TABLE `category` (
   `sort_order` int(11) DEFAULT NULL,
   `is_active` int(11) DEFAULT '1',
   `show_home` tinyint(1) NOT NULL DEFAULT '0',
-  `brand` varchar(80) NOT NULL,
+  `brand` varchar(80) DEFAULT NULL,
   `picture` varchar(80) DEFAULT NULL,
   `description` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -160,20 +154,13 @@ CREATE TABLE `category` (
 --
 
 INSERT INTO `category` (`id`, `category_name`, `pid`, `sort_order`, `is_active`, `show_home`, `brand`, `picture`, `description`) VALUES
-(24, 'Cloth', 0, NULL, 1, 1, '0', '', ''),
-(25, 'Electronics', 0, NULL, 1, 1, '0', '', ''),
-(26, 'T-Shirt', 24, NULL, 1, 0, '0', '', ''),
-(27, 'Mobile', 25, NULL, 1, 0, '0', '', ''),
-(28, 'blender 001', 29, NULL, 1, 0, '0', '', ''),
-(29, 'Blender', 25, NULL, 1, 0, '0', '', ''),
-(30, 'Watch', 25, NULL, 1, 0, '0', '', ''),
-(31, 'Pant', 24, NULL, 1, 0, '0', '', ''),
-(32, 'Laptop1', 25, NULL, 1, 0, '0', '', ''),
-(33, 'New Parent', 0, NULL, 1, 1, '0', '', ''),
-(34, 'Sub Cat', 33, NULL, 1, 1, '0', '', ''),
-(35, 'Sub Sub Cat', 34, NULL, 1, 1, '0', '', ''),
-(36, 'seiko', 30, NULL, 1, 0, '\"samsung,hp\"', 'category_picture/9422859074837e340bfce94d839ca1ab.gif', ''),
-(37, 'Tshirt', 24, NULL, 1, 0, '\"polo\"', 'category_picture/606d6b330acc82cf38ba4779466e3620.jpg', 'test description');
+(45, 'Electronics', 0, NULL, 1, 1, '\"samsung,hp,walton\"', 'category_picture/309893881.png', 'test category'),
+(46, 'Cloths', 0, NULL, 1, 0, '\"polo\"', 'category_picture/848171263.png', 'sdafasdf'),
+(47, 'Mobile', 45, NULL, 1, 0, '\"samsung,walton\"', 'category_picture/1378356692.png', 'dsafas'),
+(48, 'T-shirt', 46, NULL, 1, 0, '\"polo\"', 'category_picture/1098369165.png', 'asdfa'),
+(49, 'Laptop', 45, NULL, 1, 0, '\"samsung\"', 'category_picture/1ae07e67af1c6c02f5b191f3c402a191.jpg', 'test'),
+(50, 'Watch', 45, NULL, 1, 0, '\"Mak\"', 'category_picture/7da4c772cc9657c7b5fae1a0a34b380e.jpg', 'test'),
+(51, 'Kitchen', 51, NULL, 1, 0, '\"walton,Mak\"', 'category_picture/e7ce844e81dd9e24d8a2b6d5c2f065f8.jpg', 'test');
 
 -- --------------------------------------------------------
 
@@ -203,6 +190,33 @@ INSERT INTO `colors` (`id`, `name`, `created_at`, `is_active`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `config`
+--
+
+CREATE TABLE `config` (
+  `id` int(11) NOT NULL,
+  `config_key` varchar(30) DEFAULT NULL,
+  `title` varchar(80) DEFAULT NULL,
+  `value` text,
+  `status` tinyint(1) NOT NULL DEFAULT '1'
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `config`
+--
+
+INSERT INTO `config` (`id`, `config_key`, `title`, `value`, `status`) VALUES
+(6, 'site_logo', 'asdfasdf', 'logo_image/5521b451d038904de13db32d8b7eb400.png', 1),
+(7, 'site_logo', 'sdsd', 'logo_image/a9547b881ee64173ac4a98e74de9ece7.jpg', 0),
+(8, 'site_logo', 'dsafad', 'logo_image/644acf47cf509827246fc6c29d8fee8f.jpg', 0),
+(9, 'hot_prouduct', 'Hot Product Show', '1', 1),
+(10, 'best_selling', 'Best Seller Product Show', '1', 1),
+(11, 'new_arrival_show', 'Show New Arrival', '1', 1),
+(12, 'shipping_charge', 'Product Shipping Charge', '100', 1);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `cupon`
 --
 
@@ -211,13 +225,20 @@ CREATE TABLE `cupon` (
   `title` varchar(80) NOT NULL,
   `code` varchar(50) NOT NULL,
   `specification` text NOT NULL,
-  `added_by` varchar(80) NOT NULL,
+  `added_by` varchar(80) DEFAULT NULL,
   `till` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `discount_on` int(11) NOT NULL,
   `discount_type` int(11) NOT NULL,
   `discount_value` varchar(5) NOT NULL,
   `status` tinyint(1) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `cupon`
+--
+
+INSERT INTO `cupon` (`id`, `title`, `code`, `specification`, `added_by`, `till`, `discount_on`, `discount_type`, `discount_value`, `status`) VALUES
+(1, 'PAHELA BOISHAKH', 'o7ro4rogoh', 'TEST SPECIFICATION', NULL, '2020-03-21 17:08:18', 2, 1, '500', 1);
 
 -- --------------------------------------------------------
 
@@ -247,7 +268,8 @@ CREATE TABLE `customer` (
 --
 
 INSERT INTO `customer` (`id`, `name`, `username`, `email`, `password`, `contact`, `address`, `country`, `state`, `city`, `zip_code`, `joining_date`, `images`, `is_active`) VALUES
-(1, 'Md Abdul Kuddus', 'admin', 'ma.kuddus37@gmail.com', '123456', '01834776137', 'chittagong', 'Bangladesh', 'Chittagong', 'chittagong', '4225', '2019-12-09 12:00:00', './customer_images/481c98029d0a55f888ab41a1f2fb90bd.png', 1);
+(1, 'Md Abdul Kuddus', 'admin', 'ma.kuddus37@gmail.com', '123456', '01834776137', 'chittagong', 'Bangladesh', 'Chittagong', 'chittagong', '4225', '2019-12-09 12:00:00', './customer_images/481c98029d0a55f888ab41a1f2fb90bd.png', 1),
+(2, 'Ananda Mohan', 'ananda', 'ananda@gmail.com', '123456789', '01780410319', 'chittagong', 'Bangladesh', 'Rangamati', 'chittagong', '4225', '2020-01-30 19:37:02', NULL, 1);
 
 -- --------------------------------------------------------
 
@@ -288,7 +310,8 @@ CREATE TABLE `discount_on` (
 INSERT INTO `discount_on` (`id`, `name`, `is_active`) VALUES
 (1, 'all_products', 1),
 (2, 'product', 1),
-(3, 'category', 1);
+(3, 'category', 1),
+(4, 'test', 1);
 
 -- --------------------------------------------------------
 
@@ -339,15 +362,16 @@ CREATE TABLE `products` (
   `options` text,
   `is_active` tinyint(1) NOT NULL DEFAULT '1',
   `size` varchar(80) DEFAULT NULL,
-  `quantity` int(11) NOT NULL
+  `quantity` int(11) NOT NULL,
+  `type` varchar(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `products`
 --
 
-INSERT INTO `products` (`id`, `title`, `description`, `feature_image1`, `feature_image2`, `category_id`, `sub_category_id`, `brand_id`, `unit`, `tags`, `purchase_price`, `sale_price`, `shipping_cost`, `discount`, `discount_type`, `tax`, `tax_type`, `color`, `best_selling`, `addtional_fields`, `options`, `is_active`, `size`, `quantity`) VALUES
-(21, 'Samsung A50 ', 'wwww', 'product_picture/default.png', 'product_picture/default.png', 25, 27, 1, '2', '[\"1\"]', '22', '33', '2', '3', '1', '2', '1', NULL, 0, NULL, NULL, 0, NULL, 1150);
+INSERT INTO `products` (`id`, `title`, `description`, `feature_image1`, `feature_image2`, `category_id`, `sub_category_id`, `brand_id`, `unit`, `tags`, `purchase_price`, `sale_price`, `shipping_cost`, `discount`, `discount_type`, `tax`, `tax_type`, `color`, `best_selling`, `addtional_fields`, `options`, `is_active`, `size`, `quantity`, `type`) VALUES
+(66, 'This is first product', 'afsf', 'product_picture/f4b80f35d2729bb9fc11e1926141bf62.jpeg', 'product_picture/c0c4cbe6e5d49c4653c8b18739096b58.jpg', 45, 47, 1, '1', '[\"2\"]', '200', '2000', '10', '10', '1', '10', '1', '[\"3\"]', 0, NULL, NULL, 1, '[\"3\"]', 0, '1');
 
 -- --------------------------------------------------------
 
@@ -375,6 +399,77 @@ INSERT INTO `product_images` (`id`, `product_id`, `image`, `created_at`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `product_optional_image`
+--
+
+CREATE TABLE `product_optional_image` (
+  `id` int(11) NOT NULL,
+  `product_id` int(11) NOT NULL,
+  `picture` text NOT NULL,
+  `is_active` tinyint(1) NOT NULL DEFAULT '1'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `product_optional_image`
+--
+
+INSERT INTO `product_optional_image` (`id`, `product_id`, `picture`, `is_active`) VALUES
+(6, 53, 'product_picture/ab0c7fa49af06abaa9bd3105487230b8.jpeg', 1),
+(7, 53, 'product_picture/ab0c7fa49af06abaa9bd3105487230b8.jpeg', 1),
+(8, 53, 'product_picture/ab0c7fa49af06abaa9bd3105487230b8.jpeg', 1),
+(9, 53, 'product_picture/ab0c7fa49af06abaa9bd3105487230b8.jpeg', 1),
+(10, 53, 'product_picture/ab0c7fa49af06abaa9bd3105487230b8.jpeg', 1),
+(11, 54, 'product_picture/6879dabbc1d5d0fb2172a2d7ebfe1e8e.jpeg', 1),
+(12, 54, 'product_picture/6879dabbc1d5d0fb2172a2d7ebfe1e8e.jpeg', 1),
+(13, 54, 'product_picture/6879dabbc1d5d0fb2172a2d7ebfe1e8e.jpeg', 1),
+(14, 54, 'product_picture/6879dabbc1d5d0fb2172a2d7ebfe1e8e.jpeg', 1),
+(15, 54, 'product_picture/6879dabbc1d5d0fb2172a2d7ebfe1e8e.jpeg', 1),
+(16, 55, 'product_picture/0bd0d94932eb2ac877b3f99faadeb35a.jpeg', 1),
+(17, 55, 'product_picture/0bd0d94932eb2ac877b3f99faadeb35a.jpeg', 1),
+(18, 55, 'product_picture/0bd0d94932eb2ac877b3f99faadeb35a.jpeg', 1),
+(19, 55, 'product_picture/0bd0d94932eb2ac877b3f99faadeb35a.jpeg', 1),
+(20, 55, 'product_picture/0bd0d94932eb2ac877b3f99faadeb35a.jpeg', 1),
+(21, 56, 'product_picture/1cd0222e8ce5b6f5cdcc2a945368ab1d.jpeg', 1),
+(22, 56, 'product_picture/4b83f70d5b09a9d1f11ea2c0115fde78.jpg', 1),
+(23, 56, 'product_picture/4b83f70d5b09a9d1f11ea2c0115fde78.jpg', 1),
+(24, 56, 'product_picture/4b83f70d5b09a9d1f11ea2c0115fde78.jpg', 1),
+(25, 56, 'product_picture/4b83f70d5b09a9d1f11ea2c0115fde78.jpg', 1),
+(26, 57, 'product_picture/6f73c591adb9b9b23a598af80f39bec6.jpeg', 1),
+(27, 57, 'product_picture/6f73c591adb9b9b23a598af80f39bec6.jpeg', 1),
+(28, 57, 'product_picture/6f73c591adb9b9b23a598af80f39bec6.jpeg', 1),
+(29, 57, 'product_picture/6f73c591adb9b9b23a598af80f39bec6.jpeg', 1),
+(30, 57, 'product_picture/6f73c591adb9b9b23a598af80f39bec6.jpeg', 1),
+(31, 62, 'product_picture/d572694aa6f1b6744dec02602b0dbe03.jpeg', 1),
+(32, 62, 'product_picture/d572694aa6f1b6744dec02602b0dbe03.jpeg', 1),
+(33, 62, 'product_picture/d572694aa6f1b6744dec02602b0dbe03.jpeg', 1),
+(34, 62, 'product_picture/d572694aa6f1b6744dec02602b0dbe03.jpeg', 1),
+(35, 62, 'product_picture/d572694aa6f1b6744dec02602b0dbe03.jpeg', 1),
+(36, 66, 'product_picture/3f057b3d4cf86c0a1ea035c6fdb3965f.jpg', 1),
+(37, 66, 'product_picture/730a3cd4ef8de70d5dacfe1809f87bc3.jpg', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `product_type`
+--
+
+CREATE TABLE `product_type` (
+  `id` int(11) NOT NULL,
+  `name` varchar(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `product_type`
+--
+
+INSERT INTO `product_type` (`id`, `name`) VALUES
+(1, 'hot'),
+(2, 'new'),
+(3, 'regular');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `sales`
 --
 
@@ -398,14 +493,6 @@ CREATE TABLE `sales` (
   `delivery_status` int(11) NOT NULL DEFAULT '1',
   `is_checked` varchar(50) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `sales`
---
-
-INSERT INTO `sales` (`id`, `code`, `customer_id`, `guest_details`, `product_details`, `shipping_address`, `vat`, `vat_percent`, `shipping_cost`, `payment_type`, `payment_status`, `payment_details`, `payment_at`, `grand_total`, `sales_at`, `delivery_at`, `delivery_status`, `is_checked`) VALUES
-(6, '41577211244', 1, '{\"name\":\"Md Abdul Kuddus\",\"email\":\"ma.kuddus37@gmail.com\",\"contact\":\"01834776137\",\"city\":\"chittagong\",\"address\":\"chittagong\",\"zip_code\":\"4225\",\"country\":\"Anguilla\",\"state\":\"Anguilla\"}', '{\"product_data\":[{\"id\":\"15\",\"qty\":1,\"option\":{\"color\":\"[\\\"2\\\",\\\"3\\\",\\\"6\\\"]\",\"size\":\"X,XL\"},\"price\":496,\"name\":\"HP Notebook pro\",\"shiping\":50,\"tax\":5,\"image\":\"product_picture\\/0e3183d1c864ebe56301af4533f3d6df.jpeg\",\"cupon\":\"er78e\",\"sub_total\":496},{\"id\":\"16\",\"qty\":3,\"option\":{\"color\":\"[\\\"2\\\",\\\"4\\\"]\",\"size\":\"X,XL\"},\"price\":55,\"name\":\"Gents Pant\",\"shiping\":50,\"tax\":5,\"image\":\"product_picture\\/d1d5910226995fab66d1ab624acaba8f.jpg\",\"cupon\":\"er78e\",\"sub_total\":55},{\"id\":\"17\",\"qty\":4,\"option\":{\"color\":\"[\\\"2\\\",\\\"3\\\"]\",\"size\":\"X,XL\"},\"price\":435.12,\"name\":\"Blender\",\"shiping\":50,\"tax\":5,\"image\":\"product_picture\\/7e00507ca3b45b048a82eb22d06016c6.jpg\",\"cupon\":\"er78e\",\"sub_total\":435.12}]}', '{\"name\":\"Md Abdul Kuddus\",\"email\":\"ma.kuddus37@gmail.com\",\"contact\":\"01834776137\",\"city\":\"chittagong\",\"address\":\"chittagong\",\"zip_code\":\"4225\",\"country\":\"Anguilla\",\"state\":\"Anguilla\"}', '11', '0', '50', 'cod', 1, '', '', '986.12', '12-24-2019,06:14:04 PM', '', 3, 'kuddus'),
-(7, '341577213099', 0, '{\"name\":\"Sayma Munmun\",\"email\":\"sayma.moon13@gmail.com\",\"contact\":\"01833207313\",\"city\":\"chittagong\",\"address\":\"fotehabad, hathazari\",\"zip_code\":\"4000\",\"country\":\"Bangladesh\",\"state\":\"Chittagong\"}', '{\"product_data\":[{\"id\":\"14\",\"qty\":1,\"option\":{\"color\":\"[\\\"2\\\",\\\"6\\\"]\",\"size\":\"X,XL\"},\"price\":4383.36,\"name\":\"Samsung A50 \",\"shiping\":50,\"tax\":5,\"image\":\"product_picture\\/105c557781c819855433127d8bd2c380.jpeg\",\"cupon\":\"er78e\",\"sub_total\":4383.36},{\"id\":\"15\",\"qty\":1,\"option\":{\"color\":\"[\\\"2\\\",\\\"3\\\",\\\"6\\\"]\",\"size\":\"X,XL\"},\"price\":496,\"name\":\"HP Notebook pro\",\"shiping\":50,\"tax\":5,\"image\":\"product_picture\\/0e3183d1c864ebe56301af4533f3d6df.jpeg\",\"cupon\":\"er78e\",\"sub_total\":496},{\"id\":\"16\",\"qty\":1,\"option\":{\"color\":\"[\\\"2\\\",\\\"4\\\"]\",\"size\":\"X,XL\"},\"price\":55,\"name\":\"Gents Pant\",\"shiping\":50,\"tax\":5,\"image\":\"product_picture\\/d1d5910226995fab66d1ab624acaba8f.jpg\",\"cupon\":\"er78e\",\"sub_total\":55},{\"id\":\"17\",\"qty\":1,\"option\":{\"color\":\"[\\\"2\\\",\\\"3\\\"]\",\"size\":\"X,XL\"},\"price\":435.12,\"name\":\"Blender\",\"shiping\":50,\"tax\":5,\"image\":\"product_picture\\/7e00507ca3b45b048a82eb22d06016c6.jpg\",\"cupon\":\"er78e\",\"sub_total\":435.12}]}', '{\"name\":\"Sayma Munmun\",\"email\":\"sayma.moon13@gmail.com\",\"contact\":\"01833207313\",\"city\":\"chittagong\",\"address\":\"fotehabad, hathazari\",\"zip_code\":\"4000\",\"country\":\"Bangladesh\",\"state\":\"Chittagong\"}', '15', '0', '50', 'cod', 1, '', '', '5369.48', '12-24-2019,06:44:59 PM', '', 3, 'kuddus');
 
 -- --------------------------------------------------------
 
@@ -452,9 +539,10 @@ CREATE TABLE `slider` (
 --
 
 INSERT INTO `slider` (`id`, `title`, `description`, `image`, `url`, `is_active`, `offer`) VALUES
-(1, 'first slide title', 'first description', 'slider/slide-1.jpg', 'null', 1, ''),
-(2, 'second slide title', 'second description', 'slider/slide-2.jpg', 'null', 1, ''),
-(3, 'third banner title', 'third banner description', 'slider/slide-3.jpg', 'null', 1, '');
+(2, 'this is frist title', 'this is first descirption', 'slider_image/08bb231e6469bc042a7cbf5450c1b9d5.jpg', 'asdf', 1, ''),
+(3, 'this is second title', 'this is second descirption', 'slider_image/6b80782355900c133421d440b634af38.jpg', 'dafadsf', 1, ''),
+(4, 'this is third title', 'this is third description', 'slider_image/6b80782355900c133421d440b634af90.jpg', 'test', 1, ''),
+(5, 'this is fourth title', 'this fourth description', 'slider_image/6b80782355900c133421d440b634af458.jpg', 'test', 1, '');
 
 -- --------------------------------------------------------
 
@@ -480,7 +568,9 @@ CREATE TABLE `stock` (
 --
 
 INSERT INTO `stock` (`id`, `type`, `category_id`, `product_id`, `quantity`, `rate`, `total`, `remarks`, `created_by`, `created_at`) VALUES
-(25, '1', 25, 21, 33, '33', '1089', 'fasf', '1', '2019-12-30 12:54:42');
+(25, '1', 25, 21, 33, '33', '1089', 'fasf', '1', '2019-12-30 12:54:42'),
+(26, '1', 46, 33, 34, '34', '1156', 'test remarks', '1', '2019-12-31 12:45:42'),
+(27, '1', 45, 32, 44, '44', '1936', 'adfasd', '1', '2019-12-31 12:46:09');
 
 -- --------------------------------------------------------
 
@@ -618,8 +708,8 @@ CREATE TABLE `wishlist` (
 --
 
 INSERT INTO `wishlist` (`id`, `user_id`, `product_id`, `is_active`) VALUES
-(9, 1, 2, 1),
-(10, 1, 1, 1);
+(11, 1, 47, 1),
+(12, 1, 46, 1);
 
 --
 -- Indexes for dumped tables
@@ -670,6 +760,12 @@ ALTER TABLE `colors`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `config`
+--
+ALTER TABLE `config`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `cupon`
 --
 ALTER TABLE `cupon`
@@ -713,6 +809,18 @@ ALTER TABLE `products`
 ALTER TABLE `product_images`
   ADD PRIMARY KEY (`id`),
   ADD KEY `product_id` (`product_id`);
+
+--
+-- Indexes for table `product_optional_image`
+--
+ALTER TABLE `product_optional_image`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `product_type`
+--
+ALTER TABLE `product_type`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `sales`
@@ -785,146 +893,137 @@ ALTER TABLE `wishlist`
 -- AUTO_INCREMENT for table `blogs`
 --
 ALTER TABLE `blogs`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT for table `blog_category`
 --
 ALTER TABLE `blog_category`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT for table `blog_comments`
 --
 ALTER TABLE `blog_comments`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
-
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT for table `blog_tags`
 --
 ALTER TABLE `blog_tags`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
-
 --
 -- AUTO_INCREMENT for table `brand`
 --
 ALTER TABLE `brand`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
-
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 --
 -- AUTO_INCREMENT for table `category`
 --
 ALTER TABLE `category`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
-
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=52;
 --
 -- AUTO_INCREMENT for table `colors`
 --
 ALTER TABLE `colors`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
-
+--
+-- AUTO_INCREMENT for table `config`
+--
+ALTER TABLE `config`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 --
 -- AUTO_INCREMENT for table `cupon`
 --
 ALTER TABLE `cupon`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
-
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `customer`
 --
 ALTER TABLE `customer`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `delivery_status`
 --
 ALTER TABLE `delivery_status`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
-
 --
 -- AUTO_INCREMENT for table `discount_on`
 --
 ALTER TABLE `discount_on`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
-
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT for table `payment_status`
 --
 ALTER TABLE `payment_status`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-
 --
 -- AUTO_INCREMENT for table `products`
 --
 ALTER TABLE `products`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
-
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=67;
 --
 -- AUTO_INCREMENT for table `product_images`
 --
 ALTER TABLE `product_images`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
-
+--
+-- AUTO_INCREMENT for table `product_optional_image`
+--
+ALTER TABLE `product_optional_image`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
+--
+-- AUTO_INCREMENT for table `product_type`
+--
+ALTER TABLE `product_type`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `sales`
 --
 ALTER TABLE `sales`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
-
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 --
 -- AUTO_INCREMENT for table `sizes`
 --
 ALTER TABLE `sizes`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
-
 --
 -- AUTO_INCREMENT for table `slider`
 --
 ALTER TABLE `slider`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
-
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT for table `stock`
 --
 ALTER TABLE `stock`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
-
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 --
 -- AUTO_INCREMENT for table `stock_type`
 --
 ALTER TABLE `stock_type`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-
 --
 -- AUTO_INCREMENT for table `tags`
 --
 ALTER TABLE `tags`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
-
 --
 -- AUTO_INCREMENT for table `types`
 --
 ALTER TABLE `types`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-
 --
 -- AUTO_INCREMENT for table `units`
 --
 ALTER TABLE `units`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
-
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-
 --
 -- AUTO_INCREMENT for table `wishlist`
 --
 ALTER TABLE `wishlist`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
-
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 --
 -- Constraints for dumped tables
 --
@@ -948,24 +1047,11 @@ ALTER TABLE `products`
   ADD CONSTRAINT `products_ibfk_1` FOREIGN KEY (`category_id`) REFERENCES `category` (`id`);
 
 --
--- Constraints for table `product_images`
---
-ALTER TABLE `product_images`
-  ADD CONSTRAINT `product_images_ibfk_1` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`);
-
---
 -- Constraints for table `sales`
 --
 ALTER TABLE `sales`
   ADD CONSTRAINT `sales_ibfk_1` FOREIGN KEY (`payment_status`) REFERENCES `payment_status` (`id`),
   ADD CONSTRAINT `sales_ibfk_2` FOREIGN KEY (`delivery_status`) REFERENCES `delivery_status` (`id`);
-
---
--- Constraints for table `wishlist`
---
-ALTER TABLE `wishlist`
-  ADD CONSTRAINT `wishlist_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `customer` (`id`);
-COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

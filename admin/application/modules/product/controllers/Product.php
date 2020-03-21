@@ -31,20 +31,21 @@ class Product extends Admin_Controller {
 	*/
 	public function create($product_id = NULL)
 	{
-			$this->data['product_page'] = TRUE;
-			$this->data['product_page'] = TRUE;
-			$this->data['categories'] = $this->product_model->get_all_category('dropdown');
-			$this->data['types'] = $this->product_model->get_tax_discount_type('dropdown');
-			$this->data['brands'] = $this->product_model->get_all_brands('dropdown');
-			$this->data['units'] = $this->product_model->get_all_units('dropdown');
-			$this->data['tags'] = $this->product_model->get_all_tags('dropdown');
-			$this->data['colors'] = $this->product_model->get_all_colors('dropdown');
-			$this->data['sizes'] = $this->product_model->get_all_sizes('dropdown');
-			$this->data['view_module'] = 'product';
-			$this->data['view_file'] = 'create';
+		$this->data['product_page'] = TRUE;
+		$this->data['product_page'] = TRUE;
+		$this->data['categories'] = $this->product_model->get_all_category('dropdown');
+		$this->data['types'] = $this->product_model->get_tax_discount_type('dropdown');
+		$this->data['brands'] = $this->product_model->get_all_brands('dropdown');
+		$this->data['units'] = $this->product_model->get_all_units('dropdown');
+		$this->data['tags'] = $this->product_model->get_all_tags('dropdown');
+		$this->data['colors'] = $this->product_model->get_all_colors('dropdown');
+		$this->data['sizes'] = $this->product_model->get_all_sizes('dropdown');
+		$this->data['product_type'] = $this->product_model->product_type('dropdown');
+		$this->data['view_module'] = 'product';
+		$this->data['view_file'] = 'create';
 
-			$this->load->module('template');
-			$this->template->_shop_admin($this->data);
+		$this->load->module('template');
+		$this->template->_shop_admin($this->data);
 	}
 	/*
 	*
@@ -76,24 +77,24 @@ class Product extends Admin_Controller {
 			}
 			if($product->is_active == 1){
 				$is_active = '<div class="switch">
-                    <div class="onoffswitch">
-                      <input type="checkbox" onchange="change_product_status('.$product->id.',this)" checked="checked" class="onoffswitch-checkbox status" id="example'.$p_key.'" value="0">
-                      <label class="onoffswitch-label" for="example'.$p_key.'">
-                        <span class="onoffswitch-inner"></span>
-                        <span class="onoffswitch-switch"></span>
-                      </label>
-                    </div>
-                  </div>';
+				<div class="onoffswitch">
+				<input type="checkbox" onchange="change_product_status('.$product->id.',this)" checked="checked" class="onoffswitch-checkbox status" id="example'.$p_key.'" value="0">
+				<label class="onoffswitch-label" for="example'.$p_key.'">
+				<span class="onoffswitch-inner"></span>
+				<span class="onoffswitch-switch"></span>
+				</label>
+				</div>
+				</div>';
 			}else if($product->is_active == 0){
 				$is_active = '<div class="switch">
-                    <div class="onoffswitch">
-                      <input type="checkbox" onchange="change_product_status('.$product->id.',this)" class="onoffswitch-checkbox status" id="example'.$p_key.'" value="1">
-                      <label class="onoffswitch-label" for="example'.$p_key.'">
-                        <span class="onoffswitch-inner"></span>
-                        <span class="onoffswitch-switch"></span>
-                      </label>
-                    </div>
-                  </div>';
+				<div class="onoffswitch">
+				<input type="checkbox" onchange="change_product_status('.$product->id.',this)" class="onoffswitch-checkbox status" id="example'.$p_key.'" value="1">
+				<label class="onoffswitch-label" for="example'.$p_key.'">
+				<span class="onoffswitch-inner"></span>
+				<span class="onoffswitch-switch"></span>
+				</label>
+				</div>
+				</div>';
 			}
 			$sub_array[] = '<input type="checkbox" name="product_id[]" class="product_checkbox" value="'.$product->id.'"/>';
 			$sub_array[] = $product->title;
@@ -108,15 +109,15 @@ class Product extends Admin_Controller {
 			$sub_array[] = $is_active;
 			$sub_array[] = '<img src="'.FILE_UPLOAD_PATH.'/'.$product->feature_image1.'" alt="product image" height="100px" width="100px;">';
 			$sub_array[] ='<div class="btn-group">
-                  <button data-toggle="dropdown" class="btn btn-primary dropdown-toggle" aria-expanded="false">Action</button>
-                  <ul class="dropdown-menu" x-placement="top-start" style="position: absolute; top: -2px; left: 0px; will-change: top, left;">
-                    <li><a class="dropdown-item" target="_blank" href="'.base_url('product/view?id='.$product->id).'">View</a></li>
-                    <li><a class="dropdown-item" onclick="add_product_tostock('.$product->id.','.$product->category_id.')" data-toggle="modal" data-target="#add_product_tostock">Add Stock</a></li>
-                    <li><a class="dropdown-item" href="'.base_url('product/edit/'.$product->id).'">Edit</a></li>
-                    <li><a class="dropdown-item" onclick="delete_product('.$product->id.')">Delete</a></li>
-                     <li><a class="dropdown-item" data-toggle="modal" data-target="#add_discount" onclick="add_discount('.$product->id.')">Discount</a></li>
-                  </ul>
-                </div>';
+			<button data-toggle="dropdown" class="btn btn-primary dropdown-toggle" aria-expanded="false">Action</button>
+			<ul class="dropdown-menu" x-placement="top-start" style="position: absolute; top: -2px; left: 0px; will-change: top, left;">
+			<li><a class="dropdown-item" target="_blank" href="'.base_url('product/view?id='.$product->id).'">View</a></li>
+			<li><a class="dropdown-item" onclick="add_product_tostock('.$product->id.','.$product->category_id.')" data-toggle="modal" data-target="#add_product_tostock">Add Stock</a></li>
+			<li><a class="dropdown-item" href="'.base_url('product/edit/'.$product->id).'">Edit</a></li>
+			<li><a class="dropdown-item" onclick="delete_product('.$product->id.')">Delete</a></li>
+			<li><a class="dropdown-item" data-toggle="modal" data-target="#add_discount" onclick="add_discount('.$product->id.')">Discount</a></li>
+			</ul>
+			</div>';
 			$data[] = $sub_array;
 		}
 		$output = array(
@@ -137,7 +138,8 @@ class Product extends Admin_Controller {
 	public function store()
 	{
 
-
+		// $size = count($_FILES['optional_image']['name']);
+		// var_dump($size);exit();
 		if(!empty($_FILES)){
 			$config = image_config('product_picture');
 
@@ -184,12 +186,12 @@ class Product extends Admin_Controller {
 			'description'=>$this->input->post('description'),
 			'feature_image1'=>$feature_image1,
 			'feature_image2'=>$feature_image2,
+			'type'=>$tis->input->post('type'),
 		);
 		$id = $this->product_model->store($data);
-		$size = sizeof($_FILES['optional_image']);
+		$size = count($_FILES['optional_image']['name']);
 		if($size > 0 ){
 			$files = $_FILES;
-			$size = sizeof($_FILES['optional_image']);
 			$config = image_config('product_picture');
 			$this->load->library('upload', $config);
 			for ($i=0; $i < $size; $i++) {
@@ -231,6 +233,7 @@ class Product extends Admin_Controller {
 		$this->data['colors'] = $this->product_model->get_all_colors('dropdown');
 		$this->data['sizes'] = $this->product_model->get_all_sizes('dropdown');
 		$this->data['optional_image'] = $this->product_model->get_image_optional_image($product_id);
+		$this->data['product_type'] = $this->product_model->product_type('dropdown');
 		$this->data['users_page'] = TRUE;
 		$this->data['form_page'] = TRUE;
 		$this->data['view_module'] = 'product';
@@ -286,26 +289,28 @@ class Product extends Admin_Controller {
 		$data['color']=($this->input->post('color') != '')?json_encode($this->input->post('color')):NULL;
 		$data['size']= ($this->input->post('size') != '')?json_encode($this->input->post('size')):NULL;
 		$data['description']= $this->input->post('description');
+		$data['type'] = $this->input->post('type');
 		$updated = $this->product_model->update($product_id,$data);
-		$size = sizeof($_FILES['optional_image']);
-		if($size > 0 ){
-			$files = $_FILES;
-			$size = sizeof($_FILES['optional_image']);
-			$config = image_config('product_picture');
-			$this->load->library('upload', $config);
-			for ($i=0; $i < $size; $i++) {
+		if(isset($_FILES['optional_image']['name'])){
+			$size = sizeof($_FILES['optional_image']['name']);
+			if($size > 0 ){
+				$files = $_FILES;
+				$config = image_config('product_picture');
+				$this->load->library('upload', $config);
+				for ($i=0; $i < $size; $i++) {
 
-				$_FILES['optional_image']['name']= $files['optional_image']['name'][$i];
-				$_FILES['optional_image']['type']= $files['optional_image']['type'][$i];
-				$_FILES['optional_image']['tmp_name']= $files['optional_image']['tmp_name'][$i];
-				$_FILES['optional_image']['error']= $files['optional_image']['error'][$i];
-				$_FILES['optional_image']['size']= $files['optional_image']['size'][$i]; 
+					$_FILES['optional_image']['name']= $files['optional_image']['name'][$i];
+					$_FILES['optional_image']['type']= $files['optional_image']['type'][$i];
+					$_FILES['optional_image']['tmp_name']= $files['optional_image']['tmp_name'][$i];
+					$_FILES['optional_image']['error']= $files['optional_image']['error'][$i];
+					$_FILES['optional_image']['size']= $files['optional_image']['size'][$i]; 
 
-				if($this->upload->do_upload('optional_image') == true){
-					$data = $this->upload->data();
-					$optional_image = 'product_picture/'.$data['file_name'];
-				} 
-				$this->product_model->upload_optional_image(['product_id' => $product_id,'picture' => $optional_image]);
+					if($this->upload->do_upload('optional_image') == true){
+						$data = $this->upload->data();
+						$optional_image = 'product_picture/'.$data['file_name'];
+					} 
+					$this->product_model->upload_optional_image(['product_id' => $product_id,'picture' => $optional_image]);
+				}
 			}
 		}
 
@@ -375,13 +380,13 @@ class Product extends Admin_Controller {
 				$html = '';
 				foreach ($images as $key => $image) {
 					$html.='<div class="col-md-3">';
-                $html.='<div class="form-group">';
-                $html.='<label for="control-label mb-10">Optional Image &nbsp;&nbsp;';
-                $html.='<span class="float-right text-danger" style="cursor:pointer" onclick="delete_single_image_optional('.$image->id.')">delete</span>';
-                $html.='</label><br><br>';
-                $html.='<img src="'.FILE_UPLOAD_PATH.$image->picture.'" alt="default image" height="200px" width="250px">';
-                $html.='</div>';
-                $html.='</div>';
+					$html.='<div class="form-group">';
+					$html.='<label for="control-label mb-10">Optional Image &nbsp;&nbsp;';
+					$html.='<span class="float-right text-danger" style="cursor:pointer" onclick="delete_single_image_optional('.$image->id.')">delete</span>';
+					$html.='</label><br><br>';
+					$html.='<img src="'.FILE_UPLOAD_PATH.$image->picture.'" alt="default image" height="200px" width="250px">';
+					$html.='</div>';
+					$html.='</div>';
 				}
 				echo $html;
 			}
@@ -506,6 +511,7 @@ class Product extends Admin_Controller {
 		$this->data['colors'] = $this->product_model->get_all_colors();
 		$this->data['sizes'] = $this->product_model->get_all_sizes();
 		$this->data['product'] = $this->product_model->get_product($id);
+		$this->data['optional_images'] = $this->product_model->get_image_optional_image($id);
 		$this->data['view_module'] = 'product';
 		$this->data['view_file'] = 'view';
 		$this->load->module('template');

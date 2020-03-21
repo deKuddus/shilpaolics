@@ -54,19 +54,22 @@
 <!-- Shop Catagory Area -->
 
 
-<!-- Best Selling Products -->
+<?php if(config('new_arrival_show') == 1): ?>
+<!-- New Products -->
 <section class="best-selling-products-area mb-70">
     <div class="container">
         <div class="row">
             <div class="col-12">
                 <div class="section-heading mb-50">
-                    <h5>Best Selling Products</h5>
+                    <h5 class="text-center font-weight-bold" style="text-transform: uppercase;">Newly Arrived Products</h5>
                 </div>
             </div>
         </div>
 
         <div class="row justify-content-center">
-            <?php foreach ($products as $key => $product) {?>
+            <?php 
+            if(isset($new_products)):
+            foreach ($new_products as $key => $product) {?>
                 <!-- Single Product -->
                 <div class="col-9 col-sm-6 col-md-4 col-lg-3">
                     <div class="single-product-area mb-30">
@@ -107,11 +110,138 @@
                         </div>
                     </div>
                 </div>
-            <?php } ?>
+            <?php } endif ?>
         </div>
     </div>
 </section>
 <!-- Best Selling Products -->
+<?php endif ?>
+<?php if(config('hot_prouduct') == 1): ?>
+<!-- Hot Products -->
+<section class="best-selling-products-area mb-70">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="section-heading mb-50">
+                    <h5 class="text-center font-weight-bold" style="text-transform: uppercase;">Trending Products</h5>
+                </div>
+            </div>
+        </div>
+
+        <div class="row justify-content-center">
+
+            <?php
+            if(isset($hot_product)):
+             foreach ($hot_product as $key => $product) {?>
+                <!-- Single Product -->
+                <div class="col-9 col-sm-6 col-md-4 col-lg-3">
+                    <div class="single-product-area mb-30">
+                        <div class="product_image">
+                            <!-- Product Image -->
+                            <img class="normal_img" height="974px" width="476" src="<?php echo FILE_UPLOAD_PATH.'/'.$product->feature_image1; ?>" alt="">
+
+                            <!-- Product Badge -->
+                            <div class="product_badge">
+                                <span>Top</span>
+                            </div>
+
+                            <!-- Wishlist -->
+                            <div class="product_wishlist">
+                                <a href="#" onclick="add_to_wishlist('<?php echo $product->id; ?>')"><i class="icofont-heart"></i></a>
+                            </div>
+
+                            <!-- Compare -->
+                            <div class="product_compare">
+                                <a href="#" onclick="add_to_compare('<?php echo $product->id; ?>')"><i class="icofont-exchange"></i></a>
+                            </div>
+                        </div>
+
+                        <!-- Product Description -->
+                        <div class="product_description">
+                            <!-- Add to cart -->
+                            <div class="product_add_to_cart">
+                                <a href="#" onclick="add_to_cart('<?php echo $product->id; ?>')"><i class="icofont-cart"></i> Add to Cart</a>
+                            </div>
+
+                            <!-- Quick View -->
+                            <div class="product_quick_view">
+                                <a href="#" data-toggle="modal" data-target="#quickview"><i class="icofont-eye-alt"></i> Quick View</a>
+                            </div>
+
+                            <a href="#"><?php echo $product->title; ?></a>
+                            <h6 class="product-price">$<?php echo $product->sale_price; ?></h6>
+                        </div>
+                    </div>
+                </div>
+            <?php } endif ?>
+        </div>
+    </div>
+</section>
+<!-- Best Selling Products -->
+<?php endif ?>
+
+<?php if(config('best_selling') == 1): ?>
+<!-- Bestselling Products -->
+<section class="best-selling-products-area mb-70">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="section-heading mb-50">
+                    <h5 class="text-center font-weight-bold" style="text-transform: uppercase;">Best Seller Products</h5>
+                </div>
+            </div>
+        </div>
+
+        <div class="row justify-content-center">
+            <?php 
+            if(isset($best_selling)):
+            foreach ($best_selling as $key => $product) {?>
+                <!-- Single Product -->
+                <div class="col-9 col-sm-6 col-md-4 col-lg-3">
+                    <div class="single-product-area mb-30">
+                        <div class="product_image">
+                            <!-- Product Image -->
+                            <img class="normal_img" height="974px" width="476" src="<?php echo FILE_UPLOAD_PATH.'/'.$product->feature_image1; ?>" alt="">
+
+                            <!-- Product Badge -->
+                            <div class="product_badge">
+                                <span>Top</span>
+                            </div>
+
+                            <!-- Wishlist -->
+                            <div class="product_wishlist">
+                                <a href="#" onclick="add_to_wishlist('<?php echo $product->id; ?>')"><i class="icofont-heart"></i></a>
+                            </div>
+
+                            <!-- Compare -->
+                            <div class="product_compare">
+                                <a href="#" onclick="add_to_compare('<?php echo $product->id; ?>')"><i class="icofont-exchange"></i></a>
+                            </div>
+                        </div>
+
+                        <!-- Product Description -->
+                        <div class="product_description">
+                            <!-- Add to cart -->
+                            <div class="product_add_to_cart">
+                                <a href="#" onclick="add_to_cart('<?php echo $product->id; ?>')"><i class="icofont-cart"></i> Add to Cart</a>
+                            </div>
+
+                            <!-- Quick View -->
+                            <div class="product_quick_view">
+                                <a href="#" data-toggle="modal" data-target="#quickview"><i class="icofont-eye-alt"></i> Quick View</a>
+                            </div>
+
+                            <a href="#"><?php echo $product->title; ?></a>
+                            <h6 class="product-price">$<?php echo $product->sale_price; ?></h6>
+                        </div>
+                    </div>
+                </div>
+            <?php } endif ?>
+        </div>
+    </div>
+</section>
+<!-- Best Selling Products -->
+<?php endif ?>
 
 <!-- Offer Area -->
 <section class="offer_area section_padding_0_100">
@@ -191,69 +321,7 @@
 </section>
 <!-- Offer Area End -->
 
-<!-- On Sale Products -->
-<section class="on-sale-products-area mb-70">
-    <div class="container">
-        <div class="row">
-            <div class="col-12">
-                <div class="section-heading mb-50">
-                    <h5>On Sale Products</h5>
-                </div>
-            </div>
-        </div>
 
-        <div class="row justify-content-center">
-            <?php  foreach ($onsale_products as $key => $sale_product) { ?>
-                <!-- Single Product -->
-                <div class="col-9 col-sm-6 col-md-4 col-lg-3">
-                    <div class="single-product-area mb-30">
-                        <div class="product_image">
-                            <!-- Product Image -->
-                            <img class="normal_img" height="974px" width="476" src="<?php echo FILE_UPLOAD_PATH.$sale_product->feature_image1; ?>" alt="">
-
-                            <!-- Product Badge -->
-                            <div class="product_badge">
-                                <span>Top</span>
-                            </div>
-
-                            <!-- Wishlist -->
-                            <div class="product_wishlist">
-                                <a href="#" onclick="add_to_wishlist('<?php echo $sale_product->id; ?>')"><i class="icofont-heart"></i></a>
-                            </div>
-
-                            <!-- Compare -->
-                            <div class="product_compare">
-                                <a href="#" onclick="add_to_compare('<?php echo $sale_product->id; ?>')"><i class="icofont-exchange"></i></a>
-                            </div>
-                        </div>
-
-                        <!-- Product Description -->
-                        <div class="product_description">
-                            <!-- Add to cart -->
-                            <div class="product_add_to_cart">
-                                <a href="#" onclick="add_to_cart('<?php echo $sale_product->id ?>')"><i class="icofont-cart"></i> Add to Cart</a>
-                            </div>
-
-                            <!-- Quick View -->
-                            <div class="product_quick_view">
-                                <a href="#" data-toggle="modal" data-target="#quickview"><i class="icofont-eye-alt"></i> Quick View</a>
-                            </div>
-
-                            <a href="#"><?php echo $sale_product->title; ?></a>
-                            <h6 class="product-price">$<?php echo $sale_product->sale_price; ?></h6>
-                        </div>
-                    </div>
-                </div>
-            <?php } ?>
-        </div>
-        <div class="row">
-            <div class="col-md-4"></div>
-            <div class="col-md-4"><?php echo $pagination; ?></div>
-            <div class="col-md-4"></div>
-        </div>
-    </div>
-</section>
-<!-- On Sale Products -->
 
 <!-- Special Featured Area -->
 <section class="special_feature_area pt-5">

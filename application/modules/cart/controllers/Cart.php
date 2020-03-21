@@ -28,9 +28,20 @@ class Cart extends Frontend_Controller {
     {
         $cart = $this->cart->contents();
         if(!empty($cart)){
-         echo json_encode($cart);
+            if(isset($_SESSION['coupon'])){
+                header("Content-type: application/json");
+                echo json_encode(['cart' => $cart,'coupon' => $_SESSION['coupon']]);
+                exit();
+            }else{
+             header("Content-type: application/json");
+             echo json_encode(['cart' => $cart,'coupon' => '']);
+             exit(); 
+            }
+            
         }else{
-            echo json_encode(null);
+            header("Content-type: application/json");
+            echo json_encode(['cart' => null]);
+            exit();
         }
     }
 
@@ -55,8 +66,14 @@ class Cart extends Frontend_Controller {
     }
 
 
-    public function add_to_cart_with_default_quantity_1()
+    public function add_to_cart()
     {
+        $quantity = $this->input->post('quantity');
+        if(isset($quantity) && $quantity != ""){
+            $quantity = $quantity;
+        }else{
+            $quantity = 1;
+        }
         $product_id = $this->input->post('product_id');
         $product = $this->cart_model->get_product_by_id($product_id);
         global $price;
@@ -79,7 +96,7 @@ class Cart extends Frontend_Controller {
             'color'=>'',
             'size'=>'',
             'image' => $product->feature_image1,
-            'vat' => ($product->tax)?$product->tax:'',
+            'vat' => ($price*($product->tax/100)),
         );
         $rowid = $this->cart->insert($data);
 
@@ -166,6 +183,27 @@ class Cart extends Frontend_Controller {
             if($row_id ){
                 $status = array('status'=>201,'message'=>'product added to your cart');
                 header("Content-type: application/json");
+                echo json_encode($status);
+                exit();
+            }
+        }
+    }
+
+    public function apply_coupon()
+    {
+        $coupon = $this->input->post('coupon');
+        if($coupon){
+            $validate_coupon = $this->cart_model->validate_coupon($coupon);
+            if($validate_coupon != false){
+                $array = ['code' => $coupon,'amount' => $validate_coupon->discount_value];
+                $_SESSION['coupon'] = $array;
+                header("Content-type: application/json");
+                $status = array('status' => 200,'message' => 'coupon applied');
+                echo json_encode($status);
+                exit();
+            }else{
+                header("Content-type: application/json");
+                $status = array('status' => 300,'message' => 'woops! coupon is not valid');
                 echo json_encode($status);
                 exit();
             }

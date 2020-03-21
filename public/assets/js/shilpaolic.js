@@ -19,8 +19,9 @@ function show_cart() {
   $.ajax({
     url: base_url + 'cart/contents',
     success: function (cartData) {
-      miniCart(cartData);
-      if(cartData != 'null'){
+      console.log(cartData.cart);
+      miniCart(cartData.cart);
+      if(cartData.cart != 'null'){
         var cart = '';
         var cart_total = '';
         var total = 0;
@@ -37,13 +38,13 @@ function show_cart() {
         cart += '</tr>';
         cart += ' </thead>';
         cart += '<tbody>';
-        $.each(JSON.parse(cartData), function (key, value) {
+        $.each(JSON.parse(JSON.stringify(cartData.cart)), function (key, value) {
 
           if (!value.title) {
 
             total = total + (value.qty * value.price);
             vat = (!isNaN(value.vat)?(parseFloat(vat)+parseFloat(value.vat)):0);
-            in_total = (total+vat);
+            in_total = (total+vat+parseFloat(shiping_charge));
             cart += '<tr>';
             cart += '<th scope="row" class = "single_remove" style="cursor:pointer;">';
             cart += '<i class="icofont-close"></i>';
@@ -79,13 +80,29 @@ function show_cart() {
         cart_total += ' <td>$'+shiping_charge+'</td>';
         cart_total += ' </tr>';
         cart_total += ' <tr>';
-        cart_total += '<td>VAT (10%)</td>';
+        cart_total += '<td>VAT</td>';
         cart_total += ' <td>$'+vat+'</td>';
         cart_total += ' </tr>';
         cart_total += ' <tr>';
+        if(cartData.coupon){
+          cart_total += ' <tr>';
+          cart_total += '<td>Applied Coupon</td>';
+          cart_total += ' <td>'+cartData.coupon.code+'</td>';
+          cart_total += ' </tr>';
+          cart_total += ' <tr>';
+          cart_total += '<td>Coupon Amount</td>';
+          cart_total += ' <td>'+cartData.coupon.amount+'</td>';
+          cart_total += ' </tr>';
+          cart_total += ' <tr>';
+          cart_total += '<td>Total</td>';
+          cart_total += ' <td>$'+(in_total- cartData.coupon.amount)+'</td>';
+          cart_total += '</tr>';
+        }else{
+          cart_total += ' <tr>';
         cart_total += '<td>Total</td>';
         cart_total += ' <td>$'+in_total+'</td>';
         cart_total += '</tr>';
+        }
         cart_total += '</tbody>';
         $('#cart_total').html(cart_total);
         $("#carts").html(cart);
@@ -115,7 +132,7 @@ function show_cart() {
         cart_total += ' <td>$'+shiping_charge+'</td>';
         cart_total += ' </tr>';
         cart_total += ' <tr>';
-        cart_total += '<td>VAT (10%)</td>';
+        cart_total += '<td>VAT</td>';
         cart_total += ' <td>$'+0+'</td>';
         cart_total += ' </tr>';
         cart_total += ' <tr>';
@@ -179,10 +196,10 @@ function add_to_cart(product_id) {
       timeOut: 2000
     };
     $.ajax({
-      url: base_url + 'cart/add_to_cart_with_default_quantity_1',
+      url: base_url + 'cart/add_to_cart',
       method: 'post',
       data: {
-        product_id: product_id
+        product_id: product_id,
       },
       success: function (data) {
         count_cart();
@@ -205,7 +222,7 @@ function add_to_cart_with_quantity(product_id) {
 
   if (!isNaN(quantity) && !isNaN(product_id)) {
     $.ajax({
-      url: base_url + '/cart/add_to_cart_with_user_quantity',
+      url: base_url + '/cart/add_to_cart',
       method: 'post',
       data: {
         product_id: product_id,
@@ -335,7 +352,7 @@ function miniCart(cartData) {
       var total  = 0;
       if (cartData != 'null') {
         html+='<ul class="cart-list">';
-        $.each(JSON.parse(cartData), function (key, value) {
+        $.each(JSON.parse(JSON.stringify(cartData)), function (key, value) {
 
             html += '<li>';
             html += '<div class="cart-item-desc">';
@@ -1654,3 +1671,39 @@ function product_quick_view(product_id) {
 // function close_modal() {
 //   $('#quickview').modal('hide');
 // }
+
+
+
+//coupon apply functionality
+
+function apply_coupon() {
+  var coupon = $("#coupon_code").val();
+  toastr.options = {
+    closeButton: true,
+    progressBar: true,
+    showMethod: 'slideDown',
+    timeOut: 2000
+  };
+  if(coupon){
+    $.ajax({
+      url:base_url+'cart/apply_coupon',
+      method:"post",
+      data:{coupon:coupon},
+      beforeSend:function(){
+        if(!coupon){
+          toastr.warning('enter a valid coupon code');
+        }
+      },
+      success:function(response) {
+        if(response.status == 200){
+          toastr.success(response.message);
+          setTimeout(function(){
+            window.location.reload();
+          },2000);
+        }else{
+          toastr.warning(response.message);
+        }
+      }
+    });
+  }
+}

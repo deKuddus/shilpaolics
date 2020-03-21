@@ -23,11 +23,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <div class="col-sm-8">
       <div class="title-action">
         <button data-toggle="modal" data-target="#add_new_cupon"  class="btn btn-primary">Add Cuopon</button>
-<<<<<<< HEAD
-
-=======
-        
->>>>>>> 4c8f0fac8e2e881b1ce41e20c97c32fa5e0e6b32
       </div>
     </div>
   </div>
@@ -35,11 +30,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
   <div class="ibox ">
     <div class="ibox-content">
       <div class="table-responsive">
-<<<<<<< HEAD
         <table id="cuopn_list" class="table table-striped table-bordered table-hover" >
-=======
-        <table id="cuopn_list" style="width: 990px !important;" class="table table-striped table-bordered table-hover" >
->>>>>>> 4c8f0fac8e2e881b1ce41e20c97c32fa5e0e6b32
           <thead>
             <tr>
               <th>ID</th>
@@ -107,11 +98,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 <label for="discount_on">Discount On</label>
                 <?php
                    $selected=array();
-<<<<<<< HEAD
                    echo form_dropdown(['name'=>'discount_on'],[$discount_on],[$selected],['id' =>'discount_on','class'=>'form-control chosen-select']);
-=======
-                   echo form_dropdown(['name'=>'discount_on'],[$discount_on],[$selected],['id' =>'discount_on','class'=>'form-control chosen-select']); 
->>>>>>> 4c8f0fac8e2e881b1ce41e20c97c32fa5e0e6b32
+
                  ?>
                  <div class="form-error text-danger"></div>
               </div>
@@ -121,11 +109,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 <label for="discount_type">Discount Type</label>
                 <?php
                    $selected=array();
-<<<<<<< HEAD
                    echo form_dropdown(['name'=>'discount_type'],[$discount_type],[$selected],['id' =>'discount_type','class'=>'form-control chosen-select']);
-=======
-                   echo form_dropdown(['name'=>'discount_type'],[$discount_type],[$selected],['id' =>'discount_type','class'=>'form-control chosen-select']); 
->>>>>>> 4c8f0fac8e2e881b1ce41e20c97c32fa5e0e6b32
                  ?>
                  <div class="form-error text-danger"></div>
               </div>

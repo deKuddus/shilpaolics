@@ -24,7 +24,7 @@
     <link rel="stylesheet" href="<?php echo base_url() ?>public/assets/css/dataTables/datatables.min.css">
     <script>
         var base_url = '<?php echo base_url(); ?>';
-        var shiping_charge = '<?php echo 10; ?>';
+        var shiping_charge = '<?php echo config('shipping_charge'); ?>';
         var is_loggedin = '<?php echo $this->session->userdata('logged_in'); ?>';
         var cart = '<?php echo sizeof($this->cart->contents()); ?>';
         var image_url = '<?php echo FILE_UPLOAD_PATH; ?>';
@@ -142,7 +142,7 @@
                                                 </ul>
                                             </li>
                                             <li><a href="product-details.html">Single Product</a></li>
-                                            <li><a href="cart.html">Cart</a></li>
+                                            <li><a href="<?php echo base_url('cart.html'); ?>">Cart</a></li>
                                             <li><a href="#">Checkout</a>
                                                 <ul class="dropdown">
                                                     <li><a href="checkout-1.html">Login</a></li>
@@ -228,8 +228,8 @@
                                             </ul>
                                         </div>
                                     </li>
-                                    <li><a href="<?php echo base_url('cart'); ?>">Cart</a></li>
-                                    <li><a href="<?php echo base_url('checkout'); ?>">Checkout</a></li>
+                                    <li><a href="<?php echo base_url('cart.html'); ?>">Cart</a></li>
+                                    <li><a href="<?php echo base_url('checkout.html'); ?>">Checkout</a></li>
                                     <li><a href="contact.html">Contact</a></li>
                                 </ul>
                             </div>

@@ -70,6 +70,19 @@ class Home_model extends MY_Model {
 
     }
 
+    public function get_product_by_type($type)
+    {
+        if($type == 1){
+            $query = $this->db->where('type',$type)->limit(15)->get($this->_table_products);
+            return $query->result();
+        }elseif($type == 2){
+            $query = $this->db->where('type',$type)->limit(15)->get($this->_table_products);
+            return $query->result();
+        }elseif($type == 'best_selling'){
+            $query = $this->db->order_by('best_selling','desc')->limit(15)->get($this->_table_products);
+            return $query->result();
+        }
+    }
 
 
 

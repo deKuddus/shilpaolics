@@ -42,4 +42,14 @@ class Cart_model extends MY_Model {
          $query = $this->db->where('id',$id)->get('types');
          return $query->row();
     }
+
+    public function validate_coupon($code)
+    {
+        $query = $this->db->where(['code' => $code,'status' => 1])->get('cupon');
+        if($query->row()){
+            return $query->row();
+        }else{
+            return false;
+        }
+    }
 }

@@ -1,7 +1,6 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 ?>
-   
     <!-- Breadcumb Area -->
     <div class="breadcumb_area">
         <div class="container h-100">
@@ -39,8 +38,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         <!-- Form -->
                         <div class="coupon-form">
                             <form action="#">
-                                <input type="text" class="form-control" placeholder="Enter Your Coupon Code">
-                                <button type="submit" class="btn btn-primary">Apply Coupon</button>
+                                <input type="text" class="form-control" id="coupon_code" placeholder="Enter Your Coupon Code">
+                                <button type="button" onclick="apply_coupon()" class="btn btn-primary">Apply Coupon</button>
                             </form>
                         </div>
                     </div>
@@ -54,7 +53,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 
                             </table>
                         </div>
-                        <a href="checkout-1.html" class="btn btn-primary d-block">Proceed To Checkout</a>
+                        <a href="<?php echo base_url('checkout.html') ?>" class="btn btn-primary d-block">Proceed To Checkout</a>
                     </div>
                 </div>
             </div>

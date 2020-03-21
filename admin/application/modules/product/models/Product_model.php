@@ -120,6 +120,19 @@ class Product_model extends MY_Model {
         return true;
     }
 
+    public function product_type($condition = '')
+    {
+        $query = $this->db->get('product_type');
+        if(!empty($condition)){
+            $type = array();
+            foreach ($query->result() as $key => $value) {
+                $type[$value->id] = $value->name;
+            }
+            return $type;
+        }else{
+            return $query->result();
+        }
+    }
     public function get_all_category($condition = ''){
         $query = $this->db->where('is_active',1)->get($this->_table_category);
         if(!empty($condition)){

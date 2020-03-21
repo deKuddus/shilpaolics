@@ -462,3 +462,11 @@ function delete_single_image_optional(id) {
     }
   }
 }
+
+$(".kuddus").slick({
+  dots:true
+});
+
+$('.slick_demo_1').slick({
+                dots: true
+            });

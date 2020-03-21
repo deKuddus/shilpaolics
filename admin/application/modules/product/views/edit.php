@@ -40,7 +40,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         </div>
         <div class="col-md-3"></div>
       </div>
-      <form id="edit_product" method="post" class="form-horizontal form-label-left">
+      <form id="edit_product" method="post" class="form-horizontal form-label-left" enctype="multipart/form-data">
         <div class="row">
           <div class="col-md-6">
             <div class="form-group">
@@ -164,6 +164,15 @@ defined('BASEPATH') OR exit('No direct script access allowed');
               <div class="form-error text-danger"></div>
             </div>
           </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label>Product Type</label> 
+              <?php
+              $selected = array ($product->type);
+              echo form_dropdown(['name'=>'type'],$product_type,$selected,['id' =>'size','class'=>'form-control','style'=>'text-transform:uppercase','tabindex'=>'4','data-placeholder'=>'Select Product type']); ?>
+              <div class="form-error text-danger"></div>
+            </div>
+          </div>
         </div>
         <div class="row">      
           <div class="col-md-12">
@@ -225,7 +234,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
   </div>
 </div>
 <script type="text/javascript">
-  var product_id_form_edit = '<?php echo $product->id; ?>';
+   product_id_form_edit = '<?php echo $product->id; ?>';
 </script>
 
 

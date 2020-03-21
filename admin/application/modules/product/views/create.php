@@ -40,7 +40,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         </div>
         <div class="col-md-3"></div>
       </div>
-      <form id="add_product" method="post" class="form-horizontal form-label-left">
+      <form id="add_product" method="post" class="form-horizontal form-label-left" enctype="multipart/form-data">
         <div class="row">
           <div class="col-md-6">
             <div class="form-group">
@@ -160,6 +160,15 @@ defined('BASEPATH') OR exit('No direct script access allowed');
               <?php
               $selected=array();
               echo form_dropdown(['name'=>'size[]'],[$sizes],[$selected],['id' =>'size','class'=>'form-control chosen-select','multiple'=>'multiple','style'=>'width:350px' ,'tabindex'=>'4','data-placeholder'=>'Choose size']); ?>
+              <div class="form-error text-danger"></div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label>Product Type</label> 
+              <?php
+              $selected = array();
+              echo form_dropdown(['name'=>'type'],[$product_type],[$selected],['id' =>'size','class'=>'form-control','style'=>'text-transform:uppercase' ,'tabindex'=>'4','data-placeholder'=>'Select Product type']); ?>
               <div class="form-error text-danger"></div>
             </div>
           </div>

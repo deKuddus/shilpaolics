@@ -60,6 +60,7 @@
     <script>
         var base_url = "<?php echo base_url(); ?>";
         var image_url = '<?php echo FILE_UPLOAD_PATH; ?>';
+        var product_id_form_edit;
     </script>
      <script src="<?php echo base_url(); ?>public/admin_theme/js/jquery-3.1.1.min.js"></script>
      <script src="<?php echo base_url(); ?>public/admin_theme/js/plugins/ckeditor/ckeditor.js"></script>

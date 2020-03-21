@@ -11,19 +11,22 @@ class Home extends Frontend_Controller {
     }
 
     public function index() {
-    	$this->products();
+    	$this->manage();
     }
 
- //    public function manage() {
- //        $this->data['home_page'] = TRUE;
-
- //        $this->data['view_module'] = 'home';
- //        $this->data['view_file'] = 'manage';
- //        $this->data['categories'] = $this->home_model->get_all_categories_for_home();
- //        $this->data['sliders'] = $this->home_model->get_3_active_slider();
- //        $this->load->module('template');
- //        $this->template->_shop_ui($this->data);
-	// }
+    public function manage() {
+        $this->data['home_page'] = TRUE;
+        $this->data['view_module'] = 'home';
+        $this->data['view_file'] = 'manage';
+        $this->data['page_title'] = 'HOME : shilpaolic.com';
+        $this->data['categories'] = $this->home_model->get_all_categories_for_home();
+        $this->data['sliders'] = $this->home_model->get_3_active_slider();
+        $this->data['hot_product'] = $this->home_model->get_product_by_type(1);
+        $this->data['new_products'] = $this->home_model->get_product_by_type(2);
+        $this->data['best_selling'] = $this->home_model->get_product_by_type('best_selling');
+        $this->load->module('template');
+        $this->template->_shop_ui($this->data);
+	}
 
 
 

@@ -1,14 +1,15 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
+
 $active_group = 'default';
 $query_builder = TRUE;
 
 $db['default'] = array(
 	'dsn'	=> '',
 	'hostname' => 'localhost',
-	'username' => 'root',
-	'password' => '',
+	'username' => 'newuser',
+	'password' => 'kuddus2200',
 	'database' => 'shopi24_db',
 	'dbdriver' => 'mysqli',
 	'dbprefix' => '',
