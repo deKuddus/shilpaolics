@@ -174,28 +174,20 @@ defined('BASEPATH') OR exit('No direct script access allowed');
           </div>
         </div>
         <div class="row">
-          <div class="col-md-6">
+          <div class="col-md-6 text-center">
             <div class="form-group">
               <label>Product Featured First Image</label>
               <div class="containers">
-                <img class="product_image" id="product_image1"  src="<?php echo base_url();?>/product_picture/default.png" alt="default image" height="200px" width="250px">
-
-                <span>
-                  <label for="feature_image1"><i class="fa fa-camera"></i></label>
-                </span>
+                  <label for="feature_image1"><img class="product_image" id="product_image1"  src="<?php echo FILE_UPLOAD_PATH;?>/product_picture/default.png" alt="default image" height="200px" width="250px"></label>
                 <input type="file" id="feature_image1" name="feature_image1" accept="image/gif,image/jpeg,image/jpg,image/png,">
               </div>
             </div>
           </div>
-          <div class="col-md-6">
+          <div class="col-md-6 text-center">
             <div class="form-group">
               <label>Product Featured Second Image</label>
               <div class="containers">
-                <img class="product_image" id="product_image2"  src="<?php echo base_url();?>/product_picture/default.png" alt="default image" height="200px" width="250px">
-                
-                <span>
-                  <label for="feature_image2"><i class="fa fa-camera"></i></label>
-                </span>
+                  <label for="feature_image2"><img class="product_image" id="product_image2"  src="<?php echo FILE_UPLOAD_PATH;?>/product_picture/default.png" alt="default image" height="200px" width="250px"></i></label>
                 <input type="file" id="feature_image2" name="feature_image2" accept="image/gif,image/jpeg,image/jpg,image/png,">
               </div>
             </div>

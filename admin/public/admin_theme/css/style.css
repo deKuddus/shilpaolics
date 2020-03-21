@@ -9568,21 +9568,7 @@ body.md-skin {
 
 
 
-.containers label {
-  position: absolute;
-  top: 93%;
-  left: 26%;
-  transform: translate(-50%, -50%);
-  -ms-transform: translate(-50%, -50%);
-  color: #000;
-  font-size: 26px;
-  padding: 12px 24px;
-  border: none;
-  cursor: pointer;
-  border-radius: 5px;
-  text-align: center;
-  
-}
+
 
 
 

@@ -106,13 +106,13 @@ class Product_model extends MY_Model {
     public function unlink_product_image($id,$path = ''){
         if(!empty($path)){//code for single image remove
             // return $id;
-            $feature_image ="/var/www/html/shopi24/".$path;
+            $feature_image = FILE_UPLOAD_PATH.$path;
              unlink($feature_image);
         }else{ // code for both image remove
             $query=$this->db->where('id',$id)->get('products');
             foreach ($query->result() as  $value) {
-                $feature_image1 ="/var/www/html/shopi24/".$value->feature_image1;
-                $feature_image2 ="/var/www/html/shopi24/".$value->feature_image2;
+                $feature_image1 = FILE_UPLOAD_PATH.$value->feature_image1;
+                $feature_image2 = FILE_UPLOAD_PATH.$value->feature_image2;
                 unlink($feature_image1);
                 unlink($feature_image2);
             }
@@ -246,5 +246,15 @@ class Product_model extends MY_Model {
     {
         $query = $this->db->select('discount,discount_type')->where('id',$product_id)->get($this->_table_name);
         return $query->row();
+    }
+
+    public function delete_single_image_optional($id)
+    {
+        $query = $this->db->where('id',$id)->get('product_optional_image');
+        $image = $query->row();
+        unlink('../uploads/'.$image->picture);
+        if($this->db->where('id',$id)->delete('product_optional_image')){
+            return true;
+        }
     }
 }

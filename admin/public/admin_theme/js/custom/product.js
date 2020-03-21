@@ -24,9 +24,9 @@ var table = $('#product_list').DataTable({
   }
 }
 ],
-  "lengthMenu": [ [10, 25, 50,100, -1], [10, 25, 50,100, "All"] ]
+"lengthMenu": [ [10, 25, 50,100, -1], [10, 25, 50,100, "All"] ]
 });
-   
+
 $(document).ready(function(){
   $('.product_select_all').on('change',function(e){
     if(this.checked){
@@ -343,28 +343,28 @@ function add_product_tostock(product_id,category_id){
 
 var quantity_add_form = $("#quantity_add_form");
 quantity_add_form.ajaxForm({
-    url:base_url+'product/update_quantity_in_product_table',
-    beforeSend:function(){
-      return confirm('are you sure to add this new quantity');
-    },
-    success:function(data){
-       toastr.options = {
-        closeButton: true,
-        progressBar: true,
-        showMethod: 'slideDown',
-        timeOut: 2000
-      };
-      if(data.status == 200){
-        $("#add_product_tostock").modal('hide');
-        $(quantity_add_form).trigger("reset");
-        table.ajax.reload(null, false);
-        toastr.success(data.message);
-      }else if(data.status == 300){
-        toastr.error(data.message);
-      }else{
-        toastr.error('failed to update');
-      }
-    }
+  url:base_url+'product/update_quantity_in_product_table',
+  beforeSend:function(){
+    return confirm('are you sure to add this new quantity');
+  },
+  success:function(data){
+   toastr.options = {
+    closeButton: true,
+    progressBar: true,
+    showMethod: 'slideDown',
+    timeOut: 2000
+  };
+  if(data.status == 200){
+    $("#add_product_tostock").modal('hide');
+    $(quantity_add_form).trigger("reset");
+    table.ajax.reload(null, false);
+    toastr.success(data.message);
+  }else if(data.status == 300){
+    toastr.error(data.message);
+  }else{
+    toastr.error('failed to update');
+  }
+}
 });
 
 
@@ -391,27 +391,27 @@ function add_discount(product_id){
 }
 function discount_type(discount_type){
   if(!isNaN(discount_type)){
-      $.ajax({
-        url:base_url+'product/get_selected_discount_type',
-        error:function(jqXHR,exception){
-          error_check(jqXHR,exception);
-        },
-        success:function(data){
-          if(data){
-            var html = '';
-            $.each(JSON.parse(data),function(key,value){
-              if(value.id == discount_type){
-                html+='<option selected value="'+value.id+'">'+value.symbol+'</option>';
-              }else{
-                html+='<option value="'+value.id+'">'+value.symbol+'</option>';
-              }
-            })
+    $.ajax({
+      url:base_url+'product/get_selected_discount_type',
+      error:function(jqXHR,exception){
+        error_check(jqXHR,exception);
+      },
+      success:function(data){
+        if(data){
+          var html = '';
+          $.each(JSON.parse(data),function(key,value){
+            if(value.id == discount_type){
+              html+='<option selected value="'+value.id+'">'+value.symbol+'</option>';
+            }else{
+              html+='<option value="'+value.id+'">'+value.symbol+'</option>';
+            }
+          })
 
-            $("#discount_type_to_product").html(html);
-          }
+          $("#discount_type_to_product").html(html);
         }
-      });
-    }
+      }
+    });
+  }
 }
 $('.input-images').imageUploader({
 
@@ -442,5 +442,23 @@ function get_image_optional_image(){
         }
       }
     });
+  }
+}
+
+
+function delete_single_image_optional(id) {
+  if(!isNaN(id)){
+    if(confirm('are you sure to remove this image ?')){
+      $.ajax({
+        url:base_url+'product/delete_single_image_optional',
+        method:'post',
+        data:{id:id},
+        success:function(data){
+          if(data['status'] == 200){
+            get_image_optional_image();
+          }
+        }
+      });
+    }
   }
 }
