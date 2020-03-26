@@ -173,6 +173,34 @@ defined('BASEPATH') OR exit('No direct script access allowed');
               <div class="form-error text-danger"></div>
             </div>
           </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label>Special Price</label> 
+              <?php
+              echo form_input(['name'=>'special_price','id' =>'size','class'=>'form-control','value' => $product->special_price]); ?>
+              <div class="form-error text-danger"></div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group" id="started_at">
+              <label class="font-normal" for="start_from" >End At</label>
+              <div class="input-group date">
+                <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                <input type="text" class="form-control" name="start_from" id="start_from" value="<?php echo $product->start_from; ?>">
+              </div>
+              <div class="form-error text-danger"></div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group" id="ends_at">
+              <label class="font-normal" for="end_at" >End At</label>
+              <div class="input-group date">
+                <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                <input type="text" class="form-control" name="end_at" id="end_at" value="<?php echo $product->end_at; ?>">
+              </div>
+              <div class="form-error text-danger"></div>
+            </div>
+          </div>
         </div>
         <div class="row">      
           <div class="col-md-12">

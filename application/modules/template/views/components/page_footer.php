@@ -168,10 +168,19 @@
     <script src="<?php echo base_url() ?>public/assets/js/sweet-alert.min.js"></script>
     <script src="<?php echo base_url() ?>public/assets/js/toastr/toastr.min.js"></script>
     <script src="<?php echo base_url() ?>public/assets/js/validate/jquery.validate.min.js"></script>
+    <script src="<?php echo base_url() ?>public/assets/js/plugins/datapicker/bootstrap-datepicker.js"></script>
     <script src="<?php echo base_url() ?>public/assets/js/dataTables/datatables.min.js"></script>
     <script src="<?php echo base_url() ?>public/assets/js/dataTables/dataTables.bootstrap4.min.js"></script>
     <script src="<?php echo base_url() ?>public/assets/js/shilpaolic.js"></script>
-
+    <script type="text/javascript">
+        var mem = $('#data_1 .input-group.date').datepicker({
+                todayBtn: "linked",
+                keyboardNavigation: false,
+                forceParse: false,
+                calendarWeeks: true,
+                autoclose: true
+            });
+    </script>
 </body>
 
 

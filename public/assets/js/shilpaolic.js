@@ -19,7 +19,6 @@ function show_cart() {
   $.ajax({
     url: base_url + 'cart/contents',
     success: function (cartData) {
-      console.log(cartData.cart);
       miniCart(cartData.cart);
       if(cartData.cart != 'null'){
         var cart = '';
@@ -45,6 +44,9 @@ function show_cart() {
             total = total + (value.qty * value.price);
             vat = (!isNaN(value.vat)?(parseFloat(vat)+parseFloat(value.vat)):0);
             in_total = (total+vat+parseFloat(shiping_charge));
+            if(in_total > free_shiping){
+              shiping_charge = 0;
+            }
             cart += '<tr>';
             cart += '<th scope="row" class = "single_remove" style="cursor:pointer;">';
             cart += '<i class="icofont-close"></i>';

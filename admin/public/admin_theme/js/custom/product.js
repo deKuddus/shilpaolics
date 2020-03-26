@@ -468,5 +468,24 @@ $(".kuddus").slick({
 });
 
 $('.slick_demo_1').slick({
-                dots: true
-            });
+    dots: true
+});
+
+$('#started_at .input-group.date').datepicker({
+  startView: 1,
+  todayBtn: "linked",
+  keyboardNavigation: false,
+  forceParse: false,
+  autoclose: true,
+  format: "yyyy-mm-dd"
+});
+
+
+$('#ends_at .input-group.date').datepicker({
+  startView: 1,
+  todayBtn: "linked",
+  keyboardNavigation: false,
+  forceParse: false,
+  autoclose: true,
+  format: "yyyy-mm-dd"
+});

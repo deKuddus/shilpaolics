@@ -49,6 +49,22 @@ var brand_list = $('#brand_list').DataTable({
     });
   }
 
+function Valid(form) {
+  $(form).validate({
+    errorElement: "div",
+    errorPlacement: function(error, element) {
+
+      error.appendTo( element.next(".form-error").html(''));
+      return false;
+    },
+    rules: {
+     
+    },
+    messages:{
+      
+    }
+  });
+}
 
   function edit_brand(id){
    $.ajax({

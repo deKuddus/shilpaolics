@@ -186,7 +186,10 @@ class Product extends Admin_Controller {
 			'description'=>$this->input->post('description'),
 			'feature_image1'=>$feature_image1,
 			'feature_image2'=>$feature_image2,
-			'type'=>$tis->input->post('type'),
+			'type'=>$this->input->post('type'),
+			'special_price'=>$this->input->post('special_price'),
+			'start_from'=>$this->input->post('start_from'),
+			'end_at'=>$this->input->post('end_at'),
 		);
 		$id = $this->product_model->store($data);
 		$size = count($_FILES['optional_image']['name']);
@@ -290,6 +293,9 @@ class Product extends Admin_Controller {
 		$data['size']= ($this->input->post('size') != '')?json_encode($this->input->post('size')):NULL;
 		$data['description']= $this->input->post('description');
 		$data['type'] = $this->input->post('type');
+		$data['special_price'] = $this->input->post('special_price');
+		$data['start_from'] = $this->input->post('start_from');
+		$data['end_at'] = $this->input->post('end_at');
 		$updated = $this->product_model->update($product_id,$data);
 		if(isset($_FILES['optional_image']['name'])){
 			$size = sizeof($_FILES['optional_image']['name']);

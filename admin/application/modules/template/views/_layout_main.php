@@ -92,6 +92,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     <ul class="nav nav-second-level collapse">
                         <li><a href="<?php echo base_url('setting/slider'); ?>">Slider</a></li>
                         <li><a href="<?php echo base_url('setting/logo'); ?>">Logo</a></li>
+                        <li><a href="<?php echo base_url('terms'); ?>">Terms & Conditions</a></li>
+                        <li><a href="<?php echo base_url('privacy'); ?>">Privay & Policy</a></li>
                     </ul>
                 </li>
                 <li>

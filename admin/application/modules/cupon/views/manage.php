@@ -125,7 +125,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
              <div class="form-group" id="cuopn_date">
               <label class="font-normal" for="valid_till" >Valid Till Date</label>
               <div class="input-group date">
-                <span class="input-group-addon"><i class="fa fa-calendar"></i></span><input type="text" class="form-control" name="till" id="valid_till">
+                <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                <input type="text" class="form-control" name="till" id="valid_till">
               </div>
               <div class="form-error text-danger"></div>
             </div>

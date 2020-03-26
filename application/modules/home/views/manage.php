@@ -79,7 +79,7 @@
 
                             <!-- Product Badge -->
                             <div class="product_badge">
-                                <span>Top</span>
+                                <span>NEW</span>
                             </div>
 
                             <!-- Wishlist -->
@@ -142,7 +142,7 @@
 
                             <!-- Product Badge -->
                             <div class="product_badge">
-                                <span>Top</span>
+                                <span style="background-color: #e91e63 !important;">HOT</span>
                             </div>
 
                             <!-- Wishlist -->
@@ -204,9 +204,9 @@
                             <img class="normal_img" height="974px" width="476" src="<?php echo FILE_UPLOAD_PATH.'/'.$product->feature_image1; ?>" alt="">
 
                             <!-- Product Badge -->
-                            <div class="product_badge">
+                            <!-- <div class="product_badge">
                                 <span>Top</span>
-                            </div>
+                            </div> -->
 
                             <!-- Wishlist -->
                             <div class="product_wishlist">
@@ -336,7 +336,7 @@
                     </div>
                     <div class="feature_content">
                         <h6>Free Shipping</h6>
-                        <p>For orders above $100</p>
+                        <p>For orders above $ <?php echo config('free_shipping_limit'); ?></p>
                     </div>
                 </div>
             </div>

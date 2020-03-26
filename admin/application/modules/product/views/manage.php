@@ -177,7 +177,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             </div>
             <div class="col-md-6">
               <div class="form-group">
-                <label for="discount_type_to_product">Rate</label>
+                <label for="discount_type_to_product">Discount Type</label>
                 <select name="discount_type_to_product" id="discount_type_to_product" class="form-control"></select>
               </div>
             </div>

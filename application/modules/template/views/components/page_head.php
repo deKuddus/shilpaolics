@@ -16,7 +16,7 @@
 
     <!-- Favicon  -->
     <link rel="icon" href="<?php echo base_url() ?>public/assets/img/core-img/favicon.ico">
-
+    <link href="<?php echo base_url() ?>public/assets/css/plugins/datapicker/datepicker3.css" rel="stylesheet">
     <!-- Style CSS -->
     <link rel="stylesheet" href="<?php echo base_url() ?>public/assets/style.css">
     <link rel="stylesheet" href="<?php echo base_url() ?>public/assets/css/toastr/toastr.min.css">
@@ -25,6 +25,7 @@
     <script>
         var base_url = '<?php echo base_url(); ?>';
         var shiping_charge = '<?php echo config('shipping_charge'); ?>';
+        var free_shiping = '<?php echo config('free_shipping_limit'); ?>';
         var is_loggedin = '<?php echo $this->session->userdata('logged_in'); ?>';
         var cart = '<?php echo sizeof($this->cart->contents()); ?>';
         var image_url = '<?php echo FILE_UPLOAD_PATH; ?>';

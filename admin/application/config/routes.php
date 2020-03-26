@@ -33,3 +33,8 @@ $route['category/edit/:id'] ='category/edit';
 
 //order print
 $route['order/mak/:id'] ='admin/order/print_order';
+
+
+
+// //order print
+// $route['order/mak/:id'] ='admin/order/print_order';

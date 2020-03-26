@@ -20,3 +20,6 @@ loadjscssfile("slider.js", "js");
 loadjscssfile("logo.js", "js");
 loadjscssfile("extra.js", "js");
 loadjscssfile("blogs.js", "js");
+
+loadjscssfile("terms.js", "js");
+loadjscssfile("privacy.js", "js");

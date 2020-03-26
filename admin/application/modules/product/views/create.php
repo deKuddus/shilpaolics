@@ -23,23 +23,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
   </div>
   <div class="ibox ">
     <div class="ibox-content">
-      <div class="row">
-        <div class="col-md-6">
-          <?php if(validation_errors()){?>
-            <div class="alert alert-danger alert-dismissable">
-              <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
-              <?php echo validation_errors(); ?> 
-            </div>
-          <?php } ?>
-          <?php if($this->session->flashdata('msg')){?>
-            <div class="alert alert-success alert-dismissable">
-              <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
-              <?php echo $this->session->flashdata('msg')?> 
-            </div>
-          <?php } ?>
-        </div>
-        <div class="col-md-3"></div>
-      </div>
       <form id="add_product" method="post" class="form-horizontal form-label-left" enctype="multipart/form-data">
         <div class="row">
           <div class="col-md-6">
@@ -169,6 +152,34 @@ defined('BASEPATH') OR exit('No direct script access allowed');
               <?php
               $selected = array();
               echo form_dropdown(['name'=>'type'],[$product_type],[$selected],['id' =>'size','class'=>'form-control','style'=>'text-transform:uppercase' ,'tabindex'=>'4','data-placeholder'=>'Select Product type']); ?>
+              <div class="form-error text-danger"></div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label>Special Price</label> 
+              <?php
+              echo form_input(['name'=>'special_price','id' =>'size','class'=>'form-control','style'=>'text-transform:uppercase']); ?>
+              <div class="form-error text-danger"></div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group" id="started_at">
+              <label class="font-normal" for="start_from" >End At</label>
+              <div class="input-group date">
+                <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                <input type="text" class="form-control" name="start_from" id="start_from">
+              </div>
+              <div class="form-error text-danger"></div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group" id="ends_at">
+              <label class="font-normal" for="end_at" >End At</label>
+              <div class="input-group date">
+                <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                <input type="text" class="form-control" name="end_at" id="end_at">
+              </div>
               <div class="form-error text-danger"></div>
             </div>
           </div>

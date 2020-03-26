@@ -312,7 +312,5 @@ function change_status(blogs_id,selector){
 }
 
 
-CKEDITOR.replace('content',{
-  extraPlugins: 'imageuploader'
-});  
+CKEDITOR.replace('content');  
 

@@ -52,7 +52,7 @@
     <link href="<?php echo base_url(); ?>public/admin_theme/css/plugins/footable/footable.core.css" rel="stylesheet">
     <link href="<?php echo base_url(); ?>public/admin_theme/css/plugins/jqGrid/ui.jqgrid.css" rel="stylesheet">
     <link href="<?php echo base_url(); ?>public/admin_theme/css/style.css" rel="stylesheet">
-
+<link href="<?php echo base_url(); ?>public/admin_theme/css/plugins/summernote/summernote-bs4.css" rel="stylesheet">
     <link href="<?php echo base_url(); ?>public/admin_theme/dist/image-uploader.min.css" rel="stylesheet">
 
 

@@ -62,9 +62,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <script src="<?php echo base_url(); ?>public/admin_theme/js/plugins/toastr/toastr.min.js"></script>
 <script src="<?php echo base_url(); ?>public/admin_theme/js/plugins/switchery/switchery.js"></script>
 <script src="<?php echo base_url(); ?>public/admin_theme/js/plugins/slick/slick.min.js"></script>
+
 <script src="<?php echo base_url(); ?>public/admin_theme/js/main.js"></script>
 
 <script src="<?php echo base_url(); ?>public/admin_theme/dist/image-uploader.min.js"></script>
+
+
+
 </body>
 
 </html>
